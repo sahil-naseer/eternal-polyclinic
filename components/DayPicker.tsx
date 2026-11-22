@@ -125,7 +125,7 @@ export function DayPicker() {
                 <button
                   type="button"
                   onClick={() => setPicked(nextDay)}
-                  className="mt-4 flex min-h-11 items-center rounded-xl bg-brand px-5 text-base font-bold text-white hover:bg-brand-dark"
+                  className="ep-pill mt-4 flex min-h-11 items-center rounded-xl bg-brand px-5 text-base font-bold text-white hover:bg-brand-dark"
                 >
                   See {DAY_NAMES[nextDay]}
                 </button>

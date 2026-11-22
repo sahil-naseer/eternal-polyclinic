@@ -204,7 +204,7 @@ export default async function DoctorPage({ params }: PageProps<"/doctors/[id]">)
       {/* Facilities & procedures if any */}
       {doctor.facilities && doctor.facilities.length > 0 && (
         <section aria-labelledby="facilities" className="reveal mt-8 sm:mt-12">
-          <h2 id="facilities" className="font-display text-2xl font-medium tracking-tight sm:text-3xl text-ink">
+          <h2 id="facilities" className="font-display text-2xl font-semibold tracking-tight sm:text-3xl text-ink">
             Specialized Facilities &amp; <em className="ep-mark">In-Clinic Procedures</em>
           </h2>
           <ul className="reveal-group mt-4 flex flex-wrap gap-2.5">
@@ -220,7 +220,7 @@ export default async function DoctorPage({ params }: PageProps<"/doctors/[id]">)
 
       {/* Common reasons to visit */}
       <section aria-labelledby="reasons" className="reveal mt-8 sm:mt-12">
-        <h2 id="reasons" className="font-display text-2xl font-medium tracking-tight sm:text-3xl text-ink">
+        <h2 id="reasons" className="font-display text-2xl font-semibold tracking-tight sm:text-3xl text-ink">
           When to consult <em className="ep-mark">{doctor.name ? doctor.name : `a ${doctor.speciality.toLowerCase()}`}</em>
         </h2>
         <p className="mt-1 text-sm text-muted">Common symptoms, evaluations, and clinical conditions treated</p>
@@ -242,7 +242,7 @@ export default async function DoctorPage({ params }: PageProps<"/doctors/[id]">)
 
       {/* Other doctors */}
       <section aria-labelledby="others" className="reveal mt-8 sm:mt-12">
-        <h2 id="others" className="font-display text-2xl font-medium tracking-tight sm:text-3xl text-ink">
+        <h2 id="others" className="font-display text-2xl font-semibold tracking-tight sm:text-3xl text-ink">
           Other <em className="ep-mark">Visiting Specialists</em>
         </h2>
         <ul className="reveal-group -mx-5 mt-4 flex gap-3 overflow-x-auto px-5 pb-2 snap-x snap-mandatory [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">

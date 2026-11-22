@@ -115,7 +115,7 @@ export function TabBar() {
                 <a
                   href={`tel:${clinic.phone}`}
                   onClick={() => setOpen(false)}
-                  className="flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-brand text-xs min-[380px]:text-sm font-bold text-white hover:bg-brand-dark"
+                  className="ep-pill flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-brand text-xs min-[380px]:text-sm font-bold text-white hover:bg-brand-dark"
                 >
                   <PhoneIcon className="size-3.5 shrink-0" /> Call
                 </a>
@@ -136,7 +136,7 @@ export function TabBar() {
 
       <nav
         aria-label="Quick links"
-        className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 [view-transition-name:tab-bar] border-t border-line bg-white px-1 min-[380px]:px-2 pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-1"
+        className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 [view-transition-name:tab-bar] border-t border-black/[0.06] frosted px-1 min-[380px]:px-2 pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-1"
       >
         {TABS.map(({ href, label, Icon }) => {
           const on = pathname === href || (href !== "/" && Boolean(pathname?.startsWith(href)));

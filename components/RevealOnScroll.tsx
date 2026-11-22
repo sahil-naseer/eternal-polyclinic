@@ -158,7 +158,7 @@ function setupHeroDots() {
     const y0 = Math.max(0, Math.floor((pointer.y - REACH) / GAP));
     const y1 = Math.min(Math.ceil(h / GAP), Math.ceil((pointer.y + REACH) / GAP));
 
-    ctx.fillStyle = "#1D4ED8";
+    ctx.fillStyle = "#0A0A0A";
     for (let gy = y0; gy < y1; gy += 1) {
       for (let gx = x0; gx < x1; gx += 1) {
         const x = gx * GAP + GAP / 2;

@@ -1,38 +1,38 @@
 @import "tailwindcss";
-@import "@fontsource-variable/plus-jakarta-sans";
+@import "@fontsource-variable/inter";
 
-/* Design v4 "Minimalist Clinical / Obsidian + Sapphire":
-   Crisp pure white, cool porcelain ground (#F5F7FA), sleek obsidian-midnight (#0F172A),
-   clinical sapphire highlights (#1D4ED8 / #EFF6FF), and geometric Plus Jakarta Sans throughout. */
+/* Design v5 "Monochrome": white and soft-grey grounds, near-black ink, black pill buttons, black feature cards,
+   one restrained accent (the logo's deep teal, rule 6). Inter throughout, large bold headlines, frosted header,
+   scroll-triggered fades, slides and gentle parallax/scale (all off under prefers-reduced-motion). */
 @theme {
-  --font-sans: "Plus Jakarta Sans Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Plus Jakarta Sans Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-  --color-brand: #0F172A;          /* sleek obsidian-midnight primary buttons & active states */
-  --color-brand-dark: #1D4ED8;     /* electric clinical sapphire hover & active highlight */
-  --color-accent: #1D4ED8;         /* clinical sapphire blue for doctor specialities, links & icons */
-  --color-brand-tint: #EFF6FF;     /* crisp ice-sapphire wash: icon tiles, pills, highlight wipes */
-  --color-brand-line: #BFDBFE;     /* sapphire ring/border */
+  --color-brand: #111111;          /* primary buttons and active states: near-black */
+  --color-brand-dark: #3A3A3C;     /* primary hover */
+  --color-accent: #0F766E;         /* the one accent: deep teal from the logo (links, icons, highlights) */
+  --color-brand-tint: #F2F2F4;     /* neutral grey wash: icon tiles, pills */
+  --color-brand-line: #D8D8DC;     /* neutral ring/border */
 
-  --color-night: #0B1120;          /* deep midnight obsidian footer */
-  --color-night-line: #1E293B;
-  --color-night-muted: #94A3B8;
-  --color-mint: #38BDF8;           /* luminous sky-sapphire accent on dark surfaces & CTA arrow badge */
-  --color-glow: #38BDF8;
+  --color-night: #000000;          /* black footer and dark feature cards */
+  --color-night-line: #2A2A2C;
+  --color-night-muted: #A1A1A6;
+  --color-mint: #5EEAD4;           /* the accent, lifted for black surfaces */
+  --color-glow: #5EEAD4;
 
-  --color-ground: #F5F7FA;         /* crisp cool alabaster/porcelain ground (zero green cast) */
-  --color-sand: #EDF1F7;           /* soft cool secondary bands */
-  --color-stone: #E2E8F0;
-  --color-ink: #0B1120;            /* crisp midnight-black ink */
-  --color-charcoal: #1E293B;
-  --color-muted: #475569;          /* WCAG AA muted slate copy */
-  --color-line: #E2E8F0;           /* crisp cool card border */
-  --color-line-strong: #CBD5E1;
+  --color-ground: #F5F5F7;         /* soft grey band */
+  --color-sand: #EDEDF0;
+  --color-stone: #E4E4E7;
+  --color-ink: #0A0A0A;
+  --color-charcoal: #2C2C2E;
+  --color-muted: #5E5E64;          /* 6:1 on white, 5.6:1 on ground */
+  --color-line: #E5E5E8;
+  --color-line-strong: #CDCDD2;
   --color-emergency: #B91C1C;
 
   --shadow-subtle: none;
   --shadow-card: none;
-  --shadow-elevated: 0 12px 30px -10px rgba(29, 78, 216, 0.22);
+  --shadow-elevated: 0 14px 34px -14px rgba(0, 0, 0, 0.35);
 }
 
 :root {
@@ -46,10 +46,21 @@
 }
 
 @utility card-hover {
-  transition: border-color 0.22s ease, transform 0.28s var(--mo-ease);
+  transition: border-color 0.25s ease, box-shadow 0.35s var(--mo-ease), transform 0.35s var(--mo-ease);
   &:hover {
-    transform: translateY(-2px);
-    border-color: var(--color-brand-line);
+    transform: translateY(-3px);
+    border-color: var(--color-line-strong);
+    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.28);
+  }
+}
+
+/* Frosted glass for the sticky header and the phone tab bar. Solid white where backdrop-filter is missing. */
+@utility frosted {
+  background-color: rgba(255, 255, 255, 0.97);
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    background-color: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
   }
 }
 
@@ -125,6 +136,15 @@ body {
   }
 }
 
+/* Desktop: larger headlines. Only the display sizes grow; body copy is unchanged. */
+@media (min-width: 1024px) {
+  :root {
+    --text-4xl: 2.5rem;
+    --text-5xl: 3.25rem;
+    --text-6xl: 4rem;
+  }
+}
+
 @media (min-width: 390px) and (max-width: 639px) {
   .ep-il-hero {
     max-height: 144px;
@@ -174,25 +194,26 @@ body {
   position: relative;
   z-index: 0;
   display: inline-block;
-  padding: 0.02em 0.32em;
-  border-radius: 0.42rem;
-  color: var(--color-brand-dark);
+  color: #6E6E73; /* 5:1 on white; the phrase reads as a quieter second voice */
 }
 
 .ep-mark::before {
   content: "";
   position: absolute;
-  inset: 5% 0;
+  left: 0;
+  right: 0;
+  bottom: 0.02em;
+  height: 0.075em;
+  min-height: 2px;
   z-index: -1;
-  border-radius: inherit;
-  background-image: linear-gradient(120deg, #DBEAFE 0%, #EFF6FF 100%);
-  box-shadow: inset 0 -2px 0 rgba(29, 78, 216, 0.22);
+  border-radius: 999px;
+  background: var(--color-accent);
   transform-origin: left center;
   transform: scaleX(1);
 }
 
 .ep-hero-dot-bg {
-  background-image: radial-gradient(rgba(29, 78, 216, 0.13) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -233,7 +254,7 @@ body {
 }
 
 .ep-il .ln.hot {
-  fill: #dbeafe;
+  fill: #E7F3F1;
   stroke: var(--color-accent);
   stroke-width: 1.5;
 }
@@ -300,16 +321,25 @@ body {
 
   html.reveal-ready .reveal:not(.is-visible) {
     opacity: 0;
-    transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 28px, 0);
+  }
+  html.reveal-ready .reveal.reveal-left:not(.is-visible) {
+    transform: translate3d(-36px, 0, 0);
+  }
+  html.reveal-ready .reveal.reveal-right:not(.is-visible) {
+    transform: translate3d(36px, 0, 0);
+  }
+  html.reveal-ready .reveal.reveal-scale:not(.is-visible) {
+    transform: scale(0.94);
   }
 
   html.reveal-ready .reveal.is-visible {
     opacity: 1;
     transform: none;
     transition:
-      opacity 0.42s var(--mo-ease),
-      transform 0.42s var(--mo-ease);
-    transition-delay: calc(var(--mo-i, 0) * 40ms);
+      opacity 0.7s var(--mo-ease),
+      transform 0.9s var(--mo-ease);
+    transition-delay: calc(var(--mo-i, 0) * 70ms);
   }
 
   html.reveal-ready .reveal:not(.is-visible) .ep-mark::before {
@@ -406,8 +436,59 @@ body {
 /* Card links lift subtly on hover (desktop pointers only). */
 @media (hover: hover) {
   a.card:hover {
-    transform: translateY(-2px);
-    border-color: var(--color-brand-line);
+    transform: translateY(-3px);
+    border-color: var(--color-line-strong);
+  }
+}
+
+/* Scroll-linked parallax and scale (compositor-only, no JS). Browsers without scroll timelines
+   simply show the element still; under prefers-reduced-motion nothing moves. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes ep-parallax {
+      from {
+        transform: translate3d(0, 0, 0);
+      }
+      to {
+        transform: translate3d(0, var(--ep-px, 72px), 0);
+      }
+    }
+    /* Hero art drifts down slower than the page scrolls away. */
+    .ep-parallax {
+      animation: ep-parallax linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+
+    @keyframes ep-scroll-scale {
+      from {
+        transform: scale(0.9);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+    /* Photos and dark feature cards grow to full size as they come into view. */
+    .ep-scroll-scale {
+      animation: ep-scroll-scale linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+
+    @keyframes ep-scroll-drift {
+      from {
+        transform: translate3d(0, 6%, 0) scale(1.08);
+      }
+      to {
+        transform: translate3d(0, -6%, 0) scale(1.08);
+      }
+    }
+    /* Image inside a clipped frame slides gently against the scroll. */
+    .ep-scroll-drift {
+      animation: ep-scroll-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
   }
 }
 
@@ -463,8 +544,8 @@ body {
   h3 {
     font-family: var(--font-display);
     font-optical-sizing: auto;
-    font-weight: 600;
-    letter-spacing: -0.03em;
+    font-weight: 700;
+    letter-spacing: -0.035em;
   }
   h1 em,
   h2 em,
@@ -477,6 +558,20 @@ body {
   [data-numeric] {
     font-variant-numeric: lining-nums tabular-nums;
   }
+}
+
+/* Monochrome headlines are bold: lift heading utilities from semibold to bold without touching every page.
+   Unlayered, so it beats the font-semibold utility on h1-h2 only. */
+:is(h1, h2).font-semibold {
+  font-weight: 700;
+}
+
+/* Pill buttons everywhere: any link or button styled as a rounded control becomes a full pill.
+   Cards (rounded-2xl/3xl blocks) keep their corners. */
+:where(a, button, summary).ep-pill,
+:where(a, button)[class*="rounded-xl"][class*="inline-flex"]:not([class*="flex-col"]),
+:where(a, button)[class*="rounded-lg"][class*="inline-flex"]:not([class*="flex-col"]) {
+  border-radius: 9999px;
 }
 
 /* A clear focus ring for keyboard users, everywhere. In the base layer so `outline-none` on an input whose
@@ -571,3 +666,11 @@ body {
   }
 }
 
+
+/* Grey highlight phrase on black cards. */
+.ep-on-dark .ep-mark {
+  color: #A1A1A6;
+}
+.ep-on-dark .ep-mark::before {
+  background: var(--color-mint);
+}

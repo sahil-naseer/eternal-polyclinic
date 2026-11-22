@@ -15,20 +15,20 @@ export function ByAppointmentSection() {
       
         <section aria-labelledby="by-appointment" className="bg-ground">
           <div className="mx-auto max-w-6xl px-5 pb-8 sm:px-6 sm:pb-20">
-            <div className="reveal rounded-3xl bg-sand p-4 sm:p-10">
+            <div className="reveal ep-on-dark rounded-3xl bg-night p-5 text-white sm:p-12">
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4">
                 <div>
-                  <p className="eyebrow text-muted">By appointment</p>
-                  <h2 id="by-appointment" className="mt-2 sm:mt-3 text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
+                  <p className="eyebrow text-night-muted">By appointment</p>
+                  <h2 id="by-appointment" className="mt-2 sm:mt-3 text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-white sm:text-5xl">
                     Any day, <em className="ep-mark">by appointment</em>
                   </h2>
-                  <p className="mt-2 sm:mt-3 max-w-xl text-sm sm:text-base text-muted">
+                  <p className="mt-2 sm:mt-3 max-w-xl text-sm sm:text-base text-night-muted">
                     These specialists don&rsquo;t sit on fixed days. Call reception to fix a time.
                   </p>
                 </div>
                 <a
                   href={`tel:${clinic.phone}`}
-                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-brand px-5 text-sm font-bold text-white hover:bg-brand-dark transition-colors self-start sm:self-auto shrink-0 shadow-xs"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-bold text-ink hover:bg-white/85 transition-colors self-start sm:self-auto shrink-0 shadow-xs"
                 >
                   <PhoneIcon className="size-4 shrink-0" />
                   Call {clinic.phoneDisplay}
@@ -36,9 +36,9 @@ export function ByAppointmentSection() {
               </div>
               <ul className="reveal-group mt-4 sm:mt-6 grid gap-2.5 sm:gap-3 sm:grid-cols-2">
                 {byAppointment.map((d) => (
-                  <li key={d.id} className="reveal flex flex-col justify-between rounded-2xl bg-white p-3.5 sm:p-5 shadow-xs">
+                  <li key={d.id} className="reveal flex flex-col justify-between rounded-2xl bg-white p-4 text-ink sm:p-6">
                     <div>
-                      <h3 className="font-display text-lg sm:text-2xl font-medium tracking-tight">
+                      <h3 className="font-display text-lg sm:text-2xl font-semibold tracking-tight">
                         <Link href={`/doctors/${d.id}`} className="hover:text-brand transition-colors">
                           {d.name ?? d.speciality}
                         </Link>
