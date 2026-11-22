@@ -4,7 +4,7 @@ import { formatTime } from "@/lib/schedule";
 import { PageIntro } from "@/components/SiteChrome";
 import { ChatIcon, ClockIcon, MapPinIcon, PhoneIcon, WhatsAppIcon } from "@/components/Icons";
 import { EmergencyNote } from "@/components/EmergencyNote";
-import { ReceptionPhoto } from "@/components/ClinicPhoto";
+import { ReceptionPhoto, preloadReceptionPhoto } from "@/components/ClinicPhoto";
 import { ReportCollectionSection } from "@/components/ReportCollectionSection";
 
 export const metadata: Metadata = {
@@ -13,9 +13,13 @@ export const metadata: Metadata = {
   description: `Find Eternal Polyclinic at 1st Floor, Lone Complex, Opposite SDH Hospital, Sopore. Call ${clinic.phoneDisplay} or WhatsApp ${clinic.whatsappDisplay}.`,
 };
 
+// The reception photo is the largest thing on screen when /contact opens: start its download straight away.
+const PHOTO_SIZES = "(min-width: 1152px) 500px, (min-width: 768px) 45vw, calc(100vw - 72px)";
+
 const hours = `${formatTime(clinic.hours.open)} – ${formatTime(clinic.hours.close)}`;
 
 export default function ContactPage() {
+  preloadReceptionPhoto(PHOTO_SIZES);
   return (
     <>
       <PageIntro title="Visit &amp; Contact">
@@ -66,7 +70,7 @@ export default function ContactPage() {
               <ReceptionPhoto
                 className="aspect-[3/2] rounded-2xl object-cover"
                 eager
-                sizes="(min-width: 1152px) 500px, (min-width: 768px) 45vw, calc(100vw - 72px)"
+                sizes={PHOTO_SIZES}
               />
               <figcaption className="mt-2 text-sm text-muted">
                 Reception and patient triage lounge on the 1st Floor.

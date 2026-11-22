@@ -1,4 +1,24 @@
+import { preload } from "react-dom";
 import { clinic } from "@/data/clinic";
+
+/** The photo's srcset, shared by <img> and the preload hint so both pick the same file (never a double download). */
+export const receptionSrcSet = () => {
+  const p = clinic.receptionPhoto;
+  return `${p.src}-640.webp 640w, ${p.src}-800.webp 800w, ${p.src}-1200.webp 1200w`;
+};
+
+/**
+ * Ask the browser to start downloading the photo from <head>, before CSS, font and scripts, on pages where it is
+ * the largest thing on screen at load (/contact). Pass the same `sizes` as the <ReceptionPhoto> on that page.
+ */
+export function preloadReceptionPhoto(sizes: string) {
+  preload(`${clinic.receptionPhoto.src}-1200.webp`, {
+    as: "image",
+    imageSrcSet: receptionSrcSet(),
+    imageSizes: sizes,
+    fetchPriority: "high",
+  });
+}
 
 /**
  * The clinic's reception photo. A plain <img> (the site is a static export, so next/image can't resize):
@@ -19,7 +39,7 @@ export function ReceptionPhoto({
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={`${p.src}-1200.webp`}
-      srcSet={`${p.src}-640.webp 640w, ${p.src}-800.webp 800w, ${p.src}-1200.webp 1200w`}
+      srcSet={receptionSrcSet()}
       sizes={sizes}
       alt={p.alt}
       width={p.width}

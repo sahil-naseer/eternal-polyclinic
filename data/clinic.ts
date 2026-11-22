@@ -88,7 +88,7 @@ export const clinic = {
    * name finds a DIFFERENT clinic.
    */
   location: { name: "Old Municipal Office", lat: 34.2938233, lng: 74.455089 },
-  /** Real photo sent by the clinic (24 Oct 2026). Files in public/photos/, 3:2, at 640 and 1200 px wide. */
+  /** Real photo sent by the clinic (24 Oct 2026). Files in public/photos/, 3:2, at 640, 800 and 1200 px wide. */
   receptionPhoto: {
     src: "/photos/reception",
     alt: "The reception desk at Eternal Polyclinic",
