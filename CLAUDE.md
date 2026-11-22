@@ -16,7 +16,8 @@ in under 60 seconds with no account. Reception confirms every request by phone.
 - Deploys stop silently if Cloudflare loses access to this repo (yellow "disconnected" banner in the Pages project).
   Fix: GitHub → Settings → Applications → Cloudflare Workers and Pages → Configure → Repository access must list
   BOTH tamyiz and eternal-polyclinic → Save. (Happened 23 Oct 2026.)
-- Font: Plus Jakarta Sans, self-hosted via `@fontsource-variable/plus-jakarta-sans`
+- Font: Inter for headings and body, loaded in `app/layout.tsx` with `next/font/local` from `@fontsource-variable/inter`
+  (preloaded, Latin only, adjusted Arial fallback so the swap doesn't shift layout). Plus Jakarta Sans was removed 23 Nov 2026.
 - Server code: Cloudflare Pages Functions in `functions/` (the 23 Oct "no database" decision is superseded).
   - OPD register (appointments, doctor live status, overrides, custom doctors): one JSON blob in KV `EP_KV`
     (`functions/_lib/clinic-store.ts`). Online booking `functions/api/book.ts`, staff `functions/api/admin/state.ts`.
@@ -68,13 +69,15 @@ in under 60 seconds with no account. Reception confirms every request by phone.
   Header (`SiteHeader`), footer and WhatsApp button (`SiteChrome`), and the phone/tablet bottom tab bar (`TabBar`: Home,
   Doctors, Book, More sheet) are mounted in `app/layout.tsx`.
 - Design v5 "Monochrome" (23 Nov 2026, branch `redesign/monochrome`): black/white/grey tokens in globals.css, one accent
-  (`accent`, the logo's deep teal; `mint` on black), Inter (`@fontsource-variable/inter`), bold headlines, frosted header and
+  (`accent`, the logo's deep teal; `mint` on black), Inter (see Font above), bold headlines, frosted header and
   tab bar (`frosted` utility), pill buttons (globals.css turns `inline-flex` links/buttons with rounded-xl/lg into pills; add
   `ep-pill` to others), black feature cards (`bg-night` + `ep-on-dark`). Motion: `.reveal` plus `reveal-left`/`reveal-right`/
   `reveal-scale`; CSS scroll-driven `ep-parallax` (hero art) and `ep-scroll-scale` (photo, dark cards), no JS, off under
-  prefers-reduced-motion. Supersedes the colours and fonts described below.
-- Design v3 "day-first" (2 Nov 2026, branch `redesign-v3`): light cream header, mist hero with a live `TodayCard`, night `#0B1917` footer only, cream ground, deep teal `brand`, mint on night, Fraunces headings (italic accent phrase) + Plus Jakarta Sans, 1px-border cards, no shadows, 12-14px radius buttons. Home = `components/DayPicker.tsx` (seven days, who sits; default day = today in clinic time, computed in the browser). The fake reviews page and its components were deleted (rule 7). The Booking form is the WhatsApp request again (no token slip). `/admin`: see Dashboard above (staff logins replace the PIN once the owner account exists). Inner pages inherit the new tokens; the older description below is superseded where it conflicts.
-- Design C (chosen 23 Oct 2026, mockups on the design canvas): ground `#f4f6f5`, white `card` surfaces (a utility in
+  prefers-reduced-motion. Supersedes the colours and fonts in the v3 and Design C notes below (kept for history).
+  On phones the frosted tab bar is 92% opaque (`[--frost:0.92]`) so its labels keep 4.5:1 over the black footer.
+  `card-hover` lifts only under `(hover: hover)`. Heading highlights use `ep-mark` everywhere (no boxed variants).
+- Design v3 "day-first" (superseded by v5 for colours and fonts; 2 Nov 2026, branch `redesign-v3`): light cream header, mist hero with a live `TodayCard`, night `#0B1917` footer only, cream ground, deep teal `brand`, mint on night, Fraunces headings (italic accent phrase) + Plus Jakarta Sans, 1px-border cards, no shadows, 12-14px radius buttons. Home = `components/DayPicker.tsx` (seven days, who sits; default day = today in clinic time, computed in the browser). The fake reviews page and its components were deleted (rule 7). The Booking form is the WhatsApp request again (no token slip). `/admin`: see Dashboard above (staff logins replace the PIN once the owner account exists). Inner pages inherit the new tokens; the older description below is superseded where it conflicts.
+- Design C (superseded by v5 for colours and fonts; chosen 23 Oct 2026, mockups on the design canvas): ground `#f4f6f5`, white `card` surfaces (a utility in
   globals.css; pair with `rounded-3xl`) without borders, pill buttons, ink (`bg-ink`) for primary actions and the Today card,
   `glow` for teal text on ink. Doctors show `DoctorMark` (initial, or speciality icon) until real photos arrive.
 - Deep link `/book?doctor=<doctor id>` (e.g. `/book?doctor=akash`) opens the form with that doctor chosen.
@@ -83,7 +86,9 @@ in under 60 seconds with no account. Reception confirms every request by phone.
   Wording rule: the WEBSITE saves nothing, but the WhatsApp message stays in the patient's chat. Never say "nothing is saved on your phone".
 - Visitor stats: Cloudflare Web Analytics, switched on in the Pages project (Metrics → Enable); Cloudflare injects the
   beacon on deploy, no code here. No cookies, no stored state, and it never logs query strings, so searches (`?q=`) stay
-  private. The privacy notice describes it; keep them in step.
+  private. The privacy notice describes it; keep them in step. The CSP in `public/_headers` must allow
+  `https://static.cloudflareinsights.com` (script-src) and `https://cloudflareinsights.com` (connect-src), or the beacon is
+  blocked and no visits are counted (it was, until 23 Nov 2026).
 - `lib/structured-data.ts`: all schema.org JSON-LD (clinic in the layout; IndividualPhysician + breadcrumbs on doctor pages,
   named doctors only). No FAQPage: Google dropped FAQ rich results in May 2026.
 - `app/opengraph-image.png` (+ `.alt.txt`): the preview picture when the link is shared on WhatsApp. Regenerate if the logo or name changes.
@@ -101,9 +106,10 @@ in under 60 seconds with no account. Reception confirms every request by phone.
 - Motion and rhythm (23 Oct 2026): rounded buttons/cards press in, card links lift on hover, hero text `.rise`s,
   sections below the fold use `.reveal` (one-time fade-in via `RevealOnScroll.tsx`), the More sheet slides up.
   All of it is off under prefers-reduced-motion. Home alternates bands: hero over `FeatherPattern`, specialists,
-  teal "Book in 3 steps", tinted tests band. Never animate opacity on above-the-fold text (it delays LCP).
-- Fonts: headings h1–h3 use Bricolage Grotesque (`--font-display`, set in a base layer so utilities still win), body uses
-  Plus Jakarta Sans. Both self-hosted via @fontsource-variable.
+  teal "Book in 3 steps", tinted tests band. Never animate opacity on above-the-fold content, and never put `.reveal` on
+  anything on screen at load: it stays hidden until hydration and delays LCP (the /contact top card did, fixed 23 Nov 2026).
+- Fonts: Inter everywhere (`--font-sans` and `--font-display` both read `--font-inter`); h1–h2 are bold (700), set in
+  globals.css. Bricolage Grotesque and Plus Jakarta Sans are no longer used.
 - `app/manifest.ts` + `public/icons/`: add-to-home-screen app (standalone). Icons rendered from `brand/logo.svg`.
 - Footer (`SiteFooter`): clinic, hours, pages, contact columns; on phones Hours + Contact sit side by side and Pages wraps last.
 - Live "next free slot" (23 Oct 2026): `NextAvailable` + `useClinicMinute` compute `nextSlot()`/`slotLabel()` in the visitor's
@@ -126,7 +132,7 @@ in under 60 seconds with no account. Reception confirms every request by phone.
    WhatsApp texts and confirmations name the doctor, never the speciality.
 5. Accessibility: phones use a compact scale (body 15px, h1 24px, set by the `max-width: 639px` block in globals.css;
    the owner found 18px and then 16px too big on phones, 23 Oct 2026). 18px body from 640px up. Inputs stay 16px+ (iOS zooms smaller ones). Contrast at least 4.5:1, tap targets at least 44px, real `<button>`/`<a>`/`<label>`.
-6. One brand colour (teal `brand`). Specialities are told apart by name and icon, not colour.
+6. One accent colour (teal `accent`; `mint` on black). `brand` is now near-black for primary buttons. Specialities are told apart by name and icon, not colour.
 7. No invented facts: no fake reviews, stats or promises. Missing info stays as a visible TODO.
 8. Small steps: one feature at a time, check it in the browser, then commit.
 9. The full address appears only where people look for it: Contact page, home "Visit us", footer, the FAQ "where" answer,
@@ -143,4 +149,8 @@ in under 60 seconds with no account. Reception confirms every request by phone.
 9. Polish ✓: /privacy notice, favicon + apple icon, Open Graph, schema.org MedicalClinic, robots + sitemap.
    Audit baseline (23 Oct 2026, rechecked on the Cloudflare static build): axe 0 violations on all pages; Lighthouse mobile 92–100 (noisy run to run),
    accessibility / best practices / SEO 100, layout shift 0. Don't ship below it.
+   Rechecked live 23 Nov 2026 after v5: Lighthouse mobile perf 92–96, a11y / best practices / SEO 100 on 8 pages,
+   layout shift ≤0.006; axe 0 on all 11 public pages. On `*.pages.dev` previews SEO reads ~66 and best practices 96
+   (preview noindex header, analytics CORS): that is expected and not a regression.
 10. Design C redesign ✓ (built on branch `redesign-c`, merged 23 Oct 2026).
+11. Design v5 "Monochrome" ✓ (PRs #1–#3, merged 23 Nov 2026).
