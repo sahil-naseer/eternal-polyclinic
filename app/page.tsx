@@ -52,7 +52,7 @@ export default function Home() {
           {/* 1. Top-Left Content Block */}
           <div className="relative z-10 flex min-w-0 flex-col items-start gap-3 sm:gap-4 min-[72rem]:gap-5 min-[72rem]:max-w-[36rem] min-[72rem]:pt-2 min-[72rem]:pb-8 xl:max-w-[39rem]">
             {/* Main Headline (>= 30px mobile, >= 36px tablet, >= 48px desktop) */}
-            <h1 className="rise rise-1 max-w-full font-sans font-semibold tracking-[-0.036em] text-ink text-[clamp(1.65rem,7.2vw,2.2rem)] leading-[1.08] sm:tracking-[-0.035em] sm:text-[2.65rem] sm:leading-[1.07] min-[72rem]:text-[3.05rem] xl:text-[3.35rem]">
+            <h1 className="rise rise-1 max-w-full font-sans font-bold tracking-[-0.04em] text-ink text-[clamp(1.65rem,7.2vw,2.2rem)] leading-[1.06] sm:text-[2.9rem] sm:leading-[1.04] min-[72rem]:text-[3.4rem] xl:text-[3.75rem]">
               Specialist Doctors &amp;{" "}
               <span className="block">
                 Diagnostics in <span className="ep-mark ep-mark-hero">Sopore</span>
@@ -66,7 +66,7 @@ export default function Home() {
                 className="shadow-elevated group inline-flex min-h-12 sm:min-h-13 items-center justify-center gap-2.5 rounded-xl bg-brand px-5 sm:px-7 py-2.5 sm:py-3 text-sm sm:text-base font-bold text-white hover:bg-brand-dark transition-all whitespace-nowrap"
               >
                 <span>Check OPD Schedule</span>
-                <span className="btn-arrow inline-flex size-6 items-center justify-center rounded-lg bg-mint text-ink transition-transform duration-200 group-hover:translate-x-0.5">
+                <span className="btn-arrow inline-flex size-6 items-center justify-center rounded-full bg-white text-ink transition-transform duration-200 group-hover:translate-x-0.5">
                   <span aria-hidden="true" className="text-xs font-bold leading-none">→</span>
                 </span>
               </a>
@@ -103,7 +103,9 @@ export default function Home() {
             data-hero-art=""
             className="ep-hero-art pointer-events-none relative z-0 mx-auto my-0 flex w-full max-w-[34rem] items-center justify-center select-none sm:my-4 min-[72rem]:absolute min-[72rem]:left-[34%] min-[72rem]:top-[3%] min-[72rem]:mx-0 min-[72rem]:my-0 min-[72rem]:max-w-none min-[72rem]:w-[58%] xl:left-[35%] xl:top-[2%] xl:w-[56%]"
           >
-            <HeroClinicalArt />
+            <div className="ep-parallax w-full">
+              <HeroClinicalArt />
+            </div>
           </div>
 
           {/* 3. Right-Side Compact Appointment & Live Clinic Cards (tablet & desktop) */}
@@ -121,7 +123,7 @@ export default function Home() {
       {/* Tests and medicines */}
       <section aria-labelledby="services" className="bg-white">
         <div className="mx-auto max-w-6xl px-5 py-8 sm:px-6 sm:py-20">
-          <div className="reveal">
+          <div className="reveal reveal-left">
             <p className="eyebrow text-muted">In the clinic</p>
             <h2 id="services" className="mt-2 sm:mt-3 text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
               Tests and <em className="ep-mark">medicines</em>
@@ -147,16 +149,17 @@ export default function Home() {
           </ul>
 
           {/* Quick Reports WhatsApp prompt */}
-          <div className="reveal mt-4 sm:mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-4 rounded-2xl border border-line bg-ground p-4 sm:p-5">
+          <div className="reveal mt-4 sm:mt-6">
+          <div className="ep-scroll-scale ep-on-dark flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-6 rounded-3xl bg-night p-5 text-white sm:p-8">
             <div className="flex items-start sm:items-center gap-3 sm:gap-3.5">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-tint text-accent ring-1 ring-brand-line/80">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-mint ring-1 ring-white/15">
                 <ReportIcon className="size-5" />
               </span>
               <div>
-                <strong className="block text-sm sm:text-base font-semibold text-ink">
+                <strong className="block text-base sm:text-xl font-semibold tracking-tight text-white">
                   Collect Your Reports on WhatsApp
                 </strong>
-                <p className="text-xs sm:text-sm text-muted">
+                <p className="mt-0.5 text-xs sm:text-sm text-night-muted">
                   No need to travel back to Sopore. WhatsApp or call our lab technician ({clinic.labTechPhoneDisplay}) to receive your digital PDF report.
                 </p>
               </div>
@@ -166,19 +169,20 @@ export default function Home() {
                 href={clinic.reportRequestUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-brand px-4 text-sm font-bold text-white shadow-subtle hover:bg-brand-dark active:translate-y-0.5 transition-all"
+                className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-white px-4 text-sm font-bold text-ink hover:bg-white/85 transition-all"
               >
                 <WhatsAppIcon className="size-4 shrink-0" />
                 <span>Get Report</span>
               </a>
               <a
                 href={`tel:${clinic.labTechPhone}`}
-                className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-line-strong bg-white px-4 text-sm font-semibold text-ink hover:border-brand transition-colors"
+                className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-white/30 px-4 text-sm font-semibold text-white hover:border-white transition-colors"
               >
-                <PhoneIcon className="size-3.5 shrink-0 text-brand" />
+                <PhoneIcon className="size-3.5 shrink-0 text-mint" />
                 <span>Call Lab ({clinic.labTechPhoneDisplay})</span>
               </a>
             </div>
+          </div>
           </div>
         </div>
       </section>
@@ -186,7 +190,7 @@ export default function Home() {
       {/* Visit */}
       <section aria-labelledby="visit" className="bg-ground border-t border-line">
         <div className="mx-auto grid max-w-6xl gap-5 sm:gap-8 px-5 py-8 sm:px-6 sm:py-20 lg:grid-cols-2 lg:items-center">
-          <div className="reveal">
+          <div className="reveal reveal-left">
             <p className="eyebrow text-muted">Visit us</p>
             <h2 id="visit" className="mt-2 sm:mt-3 text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
               Opposite <em className="ep-mark">SDH Hospital</em>
@@ -235,7 +239,7 @@ export default function Home() {
                       <span className="font-display text-xl font-medium tracking-tight text-ink tabular-nums lining-nums">
                         {clinic.googleRating.score}
                       </span>
-                      <span className="text-[#F59E0B] text-base leading-none tracking-tight" aria-hidden="true">★★★★★</span>
+                      <span className="text-ink text-base leading-none tracking-tight" aria-hidden="true">★★★★★</span>
                       <span className="text-xs font-semibold text-muted">on Google</span>
                     </div>
                     <p className="text-xs text-muted mt-0.5">
@@ -260,8 +264,10 @@ export default function Home() {
             </p>
             <EmergencyNote className="mt-4" />
           </div>
-          <Link href="/contact" aria-label="Map and directions" className="reveal block overflow-hidden rounded-3xl">
-            <ReceptionPhoto className="aspect-[3/2] transition-transform duration-500 ease-out hover:scale-[1.03]" sizes="(min-width: 1024px) 560px, 100vw" />
+          <Link href="/contact" aria-label="Map and directions" className="reveal reveal-right block">
+            <span className="ep-scroll-scale block overflow-hidden rounded-3xl">
+              <ReceptionPhoto className="aspect-[3/2] transition-transform duration-500 ease-out hover:scale-[1.03]" sizes="(min-width: 1024px) 560px, 100vw" />
+            </span>
           </Link>
         </div>
       </section>

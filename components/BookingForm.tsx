@@ -555,7 +555,7 @@ function FindMyToken() {
   return (
     <div className="ep-day-swap flex flex-col gap-5">
       <form onSubmit={search} className="no-print flex flex-col gap-4">
-        <h2 className="font-display text-2xl font-medium tracking-tight sm:text-3xl">Find my token</h2>
+        <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">Find my token</h2>
         <div>
           <label htmlFor="ft-phone" className="mb-1.5 block text-sm font-bold">
             Mobile number

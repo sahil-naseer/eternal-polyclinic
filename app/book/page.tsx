@@ -27,7 +27,7 @@ export default function BookPage() {
         <section className="reveal card flex flex-col justify-between gap-5 rounded-3xl p-5 sm:p-8">
           <div>
             <p className="eyebrow text-brand">Direct clinic contact</p>
-            <h2 className="mt-2 font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
+            <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
               Message or call reception
             </h2>
             <p className="mt-2 text-sm sm:text-base leading-relaxed text-muted">
@@ -82,7 +82,7 @@ export default function BookPage() {
         <section className="reveal flex flex-col justify-between gap-5 rounded-3xl bg-sand p-5 sm:p-8">
           <div>
             <p className="eyebrow text-muted">Clinic information</p>
-            <h2 className="mt-2 font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
+            <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
               Explore doctors &amp; OPD schedule
             </h2>
             <p className="mt-2 text-sm sm:text-base leading-relaxed text-charcoal">

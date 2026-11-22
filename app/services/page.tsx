@@ -51,7 +51,7 @@ export default function ServicesPage() {
                     <span className="flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-xl bg-brand-tint text-ink ring-1 ring-brand-line/70">
                       <ServiceIcon id={service.id} className="size-5 sm:size-6" />
                     </span>
-                    <h2 className="sm:mt-3 text-lg sm:text-2xl font-medium tracking-tight text-ink font-display">
+                    <h2 className="sm:mt-3 text-lg sm:text-2xl font-semibold tracking-tight text-ink font-display">
                       {service.name}
                     </h2>
                   </div>

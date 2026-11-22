@@ -67,6 +67,12 @@ in under 60 seconds with no account. Reception confirms every request by phone.
   Page links shared by header, More sheet and footer live in `components/nav.ts` (a plain module: server and client can import it).
   Header (`SiteHeader`), footer and WhatsApp button (`SiteChrome`), and the phone/tablet bottom tab bar (`TabBar`: Home,
   Doctors, Book, More sheet) are mounted in `app/layout.tsx`.
+- Design v5 "Monochrome" (23 Nov 2026, branch `redesign/monochrome`): black/white/grey tokens in globals.css, one accent
+  (`accent`, the logo's deep teal; `mint` on black), Inter (`@fontsource-variable/inter`), bold headlines, frosted header and
+  tab bar (`frosted` utility), pill buttons (globals.css turns `inline-flex` links/buttons with rounded-xl/lg into pills; add
+  `ep-pill` to others), black feature cards (`bg-night` + `ep-on-dark`). Motion: `.reveal` plus `reveal-left`/`reveal-right`/
+  `reveal-scale`; CSS scroll-driven `ep-parallax` (hero art) and `ep-scroll-scale` (photo, dark cards), no JS, off under
+  prefers-reduced-motion. Supersedes the colours and fonts described below.
 - Design v3 "day-first" (2 Nov 2026, branch `redesign-v3`): light cream header, mist hero with a live `TodayCard`, night `#0B1917` footer only, cream ground, deep teal `brand`, mint on night, Fraunces headings (italic accent phrase) + Plus Jakarta Sans, 1px-border cards, no shadows, 12-14px radius buttons. Home = `components/DayPicker.tsx` (seven days, who sits; default day = today in clinic time, computed in the browser). The fake reviews page and its components were deleted (rule 7). The Booking form is the WhatsApp request again (no token slip). `/admin`: see Dashboard above (staff logins replace the PIN once the owner account exists). Inner pages inherit the new tokens; the older description below is superseded where it conflicts.
 - Design C (chosen 23 Oct 2026, mockups on the design canvas): ground `#f4f6f5`, white `card` surfaces (a utility in
   globals.css; pair with `rounded-3xl`) without borders, pill buttons, ink (`bg-ink`) for primary actions and the Today card,

@@ -157,7 +157,7 @@ export function DoctorDirectory({ initialFilter = "all", initialQuery = "" }: { 
                           </span>
                         ) : null}
                       </div>
-                      <h3 className="text-lg sm:text-xl font-medium tracking-tight text-ink mt-1 leading-snug font-display">
+                      <h3 className="text-lg sm:text-xl font-semibold tracking-tight text-ink mt-1 leading-snug font-display">
                         <Link
                           href={builtIn ? `/doctors/${doctor.id}` : `/doctors`}
                           className="hover:text-brand transition-colors"
