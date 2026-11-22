@@ -4,7 +4,19 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { QuickActions, SiteFooter } from "@/components/SiteChrome";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { clinicSchema, jsonLd } from "@/lib/structured-data";
+import localFont from "next/font/local";
 import "./globals.css";
+
+// Inter, preloaded so the first headline paints in the final font without waiting (LCP on phones).
+// Latin only: the site is in English. Fallback metrics are adjusted so the swap doesn't shift layout.
+const inter = localFont({
+  src: "../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
+  weight: "100 900",
+  style: "normal",
+  display: "swap",
+  variable: "--font-inter",
+  adjustFontFallback: "Arial",
+});
 
 const description = `Book a visiting specialist at ${clinic.name}, ${clinic.address}. Cardiology, neurology, neurosurgery, urology, pediatrics, gynaecology, dermatology, psychiatry, ultrasound, echo, lab and pharmacy.`;
 
@@ -34,7 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // data-scroll-behavior: globals.css scrolls smoothly for in-page links; this tells Next.js 16 to switch that off
     // while it jumps to the top of a new page. Without it, new pages landed ~100px down, title under the header.
-    <html lang="en" className="h-full antialiased" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} h-full antialiased`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="min-h-full flex flex-col w-full max-w-full overflow-x-clip">
         {/* Marks the page ready for scroll fade-ins before anything paints (see globals.css). */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('reveal-ready')" }} />
