@@ -63,7 +63,7 @@ function LabConsole({ staff }: { staff: StaffSession }) {
             <p className="eyebrow text-muted">Lab desk</p>
             <h1 className="mt-2 text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
               Lab{" "}
-              <em className="inline-block rounded-xl bg-brand-tint px-2.5 py-0.5 text-ink ring-1 ring-brand-line/70">reports</em>
+              <em className="ep-mark">reports</em>
             </h1>
             <p className="mt-2 text-sm font-semibold text-charcoal">
               Signed in as {staff.displayName} · {ROLE_LABEL[staff.role]}

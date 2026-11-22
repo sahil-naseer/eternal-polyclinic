@@ -46,10 +46,13 @@
 
 @utility card-hover {
   transition: border-color 0.25s ease, box-shadow 0.35s var(--mo-ease), transform 0.35s var(--mo-ease);
-  &:hover {
-    transform: translateY(-3px);
-    border-color: var(--color-line-strong);
-    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.28);
+  /* Mouse only: on phones a tap would leave the card stuck in its lifted state. */
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-3px);
+      border-color: var(--color-line-strong);
+      box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.28);
+    }
   }
 }
 

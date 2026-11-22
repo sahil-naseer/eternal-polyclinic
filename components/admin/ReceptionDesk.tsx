@@ -484,7 +484,7 @@ export function ReceptionDesk({
             <p className="eyebrow text-muted">Authorized Staff Console</p>
             <h1 className="mt-2.5 text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
               Reception &amp;{" "}
-              <em className="inline-block rounded-xl bg-brand-tint px-2.5 py-0.5 text-ink ring-1 ring-brand-line/70">
+              <em className="ep-mark">
                 admin portal
               </em>
             </h1>
@@ -738,7 +738,7 @@ export function ReceptionDesk({
 
               <h1 className="mt-3 text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
                 {staff ? "Clinic" : "Reception"} &amp;{" "}
-                <em className="inline-block rounded-xl bg-brand-tint px-2.5 py-0.5 text-ink ring-1 ring-brand-line/70">
+                <em className="ep-mark">
                   {staff ? "dashboard" : "OPD desk"}
                 </em>
               </h1>
