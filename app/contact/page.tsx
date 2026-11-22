@@ -66,7 +66,7 @@ export default function ContactPage() {
               <ReceptionPhoto
                 className="aspect-[3/2] rounded-2xl object-cover"
                 eager
-                sizes="(min-width: 1152px) 500px, (min-width: 768px) 45vw, 100vw"
+                sizes="(min-width: 1152px) 500px, (min-width: 768px) 45vw, calc(100vw - 72px)"
               />
               <figcaption className="mt-2 text-sm text-muted">
                 Reception and patient triage lounge on the 1st Floor.
