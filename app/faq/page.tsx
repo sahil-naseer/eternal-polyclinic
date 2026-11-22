@@ -24,9 +24,9 @@ export default function FaqPage() {
           {/* Help card */}
           <div className="reveal mt-8 card rounded-3xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h3 className="font-display text-xl font-medium text-ink">
+              <h2 className="font-display text-xl font-semibold text-ink">
                 Have a question not covered above?
-              </h3>
+              </h2>
               <p className="text-base text-muted mt-1 leading-relaxed">
                 Our front desk is available daily to assist with doctor schedules and appointments.
               </p>

@@ -1,12 +1,11 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
 
 /* Design v5 "Monochrome": white and soft-grey grounds, near-black ink, black pill buttons, black feature cards,
    one restrained accent (the logo's deep teal, rule 6). Inter throughout, large bold headlines, frosted header,
    scroll-triggered fades, slides and gentle parallax/scale (all off under prefers-reduced-motion). */
 @theme {
-  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font-inter), "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   --color-brand: #111111;          /* primary buttons and active states: near-black */
   --color-brand-dark: #3A3A3C;     /* primary hover */
@@ -58,7 +57,7 @@
 @utility frosted {
   background-color: rgba(255, 255, 255, 0.97);
   @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    background-color: rgba(255, 255, 255, 0.72);
+    background-color: rgb(255 255 255 / var(--frost, 0.72));
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
   }

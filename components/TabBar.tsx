@@ -136,7 +136,7 @@ export function TabBar() {
 
       <nav
         aria-label="Quick links"
-        className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 [view-transition-name:tab-bar] border-t border-black/[0.06] frosted px-1 min-[380px]:px-2 pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-1"
+        className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 [view-transition-name:tab-bar] border-t border-black/[0.06] frosted [--frost:0.92] px-1 min-[380px]:px-2 pb-[max(0.25rem,env(safe-area-inset-bottom))] pt-1"
       >
         {TABS.map(({ href, label, Icon }) => {
           const on = pathname === href || (href !== "/" && Boolean(pathname?.startsWith(href)));

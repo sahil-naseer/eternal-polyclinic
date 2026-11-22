@@ -59,7 +59,7 @@ export default function ContactPage() {
           </a>
         </div>
 
-        <div className="reveal grid gap-5 sm:gap-8 card rounded-3xl p-4 sm:p-9 md:grid-cols-2">
+        <div className="grid gap-5 sm:gap-8 card rounded-3xl p-4 sm:p-9 md:grid-cols-2">
           {/* Left Column: Details & Photo */}
           <div className="flex flex-col gap-6">
             <figure>
