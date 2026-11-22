@@ -266,7 +266,7 @@ export default function Home() {
           </div>
           <Link href="/contact" aria-label="Map and directions" className="reveal reveal-right block">
             <span className="ep-scroll-scale block overflow-hidden rounded-3xl">
-              <ReceptionPhoto className="aspect-[3/2] transition-transform duration-500 ease-out hover:scale-[1.03]" sizes="(min-width: 1024px) 560px, 100vw" />
+              <ReceptionPhoto className="aspect-[3/2] transition-transform duration-500 ease-out hover:scale-[1.03]" sizes="(min-width: 1024px) 560px, calc(100vw - 40px)" />
             </span>
           </Link>
         </div>

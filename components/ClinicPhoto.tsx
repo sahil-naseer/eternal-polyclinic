@@ -2,7 +2,7 @@ import { clinic } from "@/data/clinic";
 
 /**
  * The clinic's reception photo. A plain <img> (the site is a static export, so next/image can't resize):
- * two prepared sizes in public/photos/, width/height set so the page never jumps while it loads.
+ * three prepared sizes in public/photos/ (800 is what most phones pick); width/height set so the page never jumps while it loads.
  */
 export function ReceptionPhoto({
   className = "",
@@ -19,7 +19,7 @@ export function ReceptionPhoto({
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={`${p.src}-1200.webp`}
-      srcSet={`${p.src}-640.webp 640w, ${p.src}-1200.webp 1200w`}
+      srcSet={`${p.src}-640.webp 640w, ${p.src}-800.webp 800w, ${p.src}-1200.webp 1200w`}
       sizes={sizes}
       alt={p.alt}
       width={p.width}
