@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { clinic, serviceActions, services } from "@/data/clinic";
+import { clinic, services } from "@/data/clinic";
 import { PageIntro } from "@/components/SiteChrome";
-import { PhoneIcon, ServiceIcon, WhatsAppIcon } from "@/components/Icons";
+import { ServiceIcon } from "@/components/Icons";
 import { ReportCollectionSection } from "@/components/ReportCollectionSection";
 
 export const metadata: Metadata = {
@@ -38,13 +38,12 @@ export default function ServicesPage() {
 
         <ul className="reveal-group grid gap-3 sm:gap-4 sm:grid-cols-2">
           {services.map((service) => {
-            const action = serviceActions(service);
             return (
               <li
                 key={service.id}
                 id={service.id}
                 data-draw=""
-                className="reveal card card-hover scroll-mt-24 flex flex-col justify-between gap-3 sm:gap-4 rounded-2xl p-4 sm:p-6"
+                className="reveal card scroll-mt-24 rounded-2xl p-4 sm:p-6"
               >
                 <div>
                   <div className="flex items-center gap-3 sm:block">
@@ -61,25 +60,6 @@ export default function ServicesPage() {
                       Lead: <span className="font-medium text-muted">{service.lead}</span>
                     </p>
                   )}
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 border-t border-line/70 pt-3 sm:pt-4">
-                  <a
-                    href={action.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-brand px-4 text-sm font-semibold text-white hover:bg-brand-dark transition-colors whitespace-nowrap"
-                  >
-                    <WhatsAppIcon className="size-4 shrink-0" />
-                    <span>{action.whatsappLabel}</span>
-                  </a>
-                  <a
-                    href={action.phoneHref}
-                    className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-line-strong bg-white px-4 text-sm font-semibold text-ink hover:border-brand hover:bg-ground transition-colors whitespace-nowrap tabular-nums lining-nums"
-                  >
-                    <PhoneIcon className="size-3.5 shrink-0 text-ink" />
-                    <span>{action.phoneLabel}</span>
-                  </a>
                 </div>
               </li>
             );
