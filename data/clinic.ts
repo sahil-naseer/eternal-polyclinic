@@ -273,13 +273,15 @@ export const doctors: Doctor[] = [
   },
   {
     id: "basharat",
-    name: "Dr. Basharat Ahmad Kanth",
+    name: "Dr. Mir Basharat Ahmad Kanth",
     speciality: "Neurosurgeon",
     category: "brain",
     categoryLabel: "Brain, spine & nerves",
-    degree: "MBBS, MS, MCh (SKIMS Soura)",
-    experienceYears: null,
-    credentials: "Member, Neuro Surgical Society of India",
+    // Degrees, experience and memberships from his public profiles (HexaHealth, Paras listing,
+    // Google), checked 23 Nov 2026: MBBS 2003 and MS General Surgery 2008 (GMC Srinagar), MCh 2013 (SKIMS).
+    degree: "MBBS, MS (General Surgery), MCh (Neurosurgery, SKIMS)",
+    experienceYears: 20,
+    credentials: "Member, Neurological Society of India, Neurological Surgeons Society of India and AO Spine",
     facilities: [
       "Microscopic disc surgery",
       "Endoscopic disc surgery",
