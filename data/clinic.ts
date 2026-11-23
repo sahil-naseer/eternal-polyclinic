@@ -117,12 +117,12 @@ export const clinic = {
     `• Test Name: \n\n` +
     `(Attaching a photo of my clinic receipt)`
   )}`,
-  /** Google verified ratings & reviews */
+  /** Google verified ratings & reviews (checked on Google Maps 23 Nov 2026: 4.4 from 14). */
   googleRating: {
-    score: "4.3",
+    score: "4.4",
     max: "5",
     count: 14,
-    url: "https://www.google.com/maps/place/ETERNAL+Diagnostic+centre/@34.29393,74.455178,17z/data=!4m8!3m7!1s0x38e109006455f87d:0x84dfd5924d4faf10!8m2!3d34.29393!4d74.455178!9m1!1b1!16s%2Fg%2F11x6mthb2q",
+    url: "https://www.google.com/maps/place/Eternal+Polyclinic+%26+Diagnostic+Centre/@34.29393,74.455178,17z/data=!4m8!3m7!1s0x38e109006455f87d:0x84dfd5924d4faf10!8m2!3d34.29393!4d74.455178!9m1!1b1!16s%2Fg%2F11x6mthb2q",
   },
   /** Shown wherever patients might book: the clinic is not an emergency service. 112 = India's emergency number.
    *  SDH Hospital's 24-hour emergency department confirmed by the clinic, 23 Oct 2026. */
