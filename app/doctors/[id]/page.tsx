@@ -36,7 +36,6 @@ export async function generateMetadata({ params }: PageProps<"/doctors/[id]">): 
 export default async function DoctorPage({ params }: PageProps<"/doctors/[id]">) {
   const doctor = find((await params).id);
   if (!doctor) notFound();
-  const others = doctors.filter((d) => d.id !== doctor.id);
   // For search engines: who this doctor is and where they practise, plus Home > Doctors > this page.
   const schema = [doctorSchema(doctor), doctorBreadcrumbs(doctor)].filter(Boolean);
 
@@ -57,17 +56,10 @@ export default async function DoctorPage({ params }: PageProps<"/doctors/[id]">)
                 <CategoryIcon category={doctor.category} className="size-3.5" />
                 {doctor.categoryLabel}
               </span>
-              <h1 className="mt-1 text-2xl font-semibold leading-tight tracking-[-0.03em] [overflow-wrap:anywhere] text-ink font-display">
-                {title(doctor)}
-              </h1>
-              <p className="mt-0.5 text-sm font-semibold text-brand">
-                {doctor.name ? doctor.speciality : "Specialist Consultant"}
-                {doctor.degree && ` · ${doctor.degree}`}
-              </p>
             </div>
           </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          <div className="flex min-w-0 flex-1 flex-col">
+            <div className="mt-3 sm:mt-0 flex flex-wrap items-center gap-1.5 sm:gap-2">
               <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-brand-tint px-3 py-1 text-xs font-semibold text-brand">
                 <CategoryIcon category={doctor.category} className="size-3.5" />
                 {doctor.categoryLabel}
@@ -95,10 +87,11 @@ export default async function DoctorPage({ params }: PageProps<"/doctors/[id]">)
               <DoctorLiveBadge doctorId={doctor.id} />
             </div>
 
-            <h1 className="hidden sm:block mt-3 text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] [overflow-wrap:anywhere] sm:text-5xl text-ink font-display">
+            {/* One heading for every screen size: shown above the badges on phones, below them from 640px */}
+            <h1 className="order-first sm:order-none sm:mt-3 text-2xl font-semibold leading-tight tracking-[-0.03em] [overflow-wrap:anywhere] sm:text-5xl sm:leading-[1.08] sm:tracking-[-0.035em] text-ink font-display">
               {title(doctor)}
             </h1>
-            <p className="hidden sm:block mt-1 text-base font-semibold text-brand">
+            <p className="order-first sm:order-none mt-0.5 sm:mt-1 text-sm sm:text-base font-semibold text-brand">
               {doctor.name ? doctor.speciality : "Specialist Consultant"}
               {doctor.degree && ` · ${doctor.degree}`}
             </p>
@@ -240,29 +233,15 @@ export default async function DoctorPage({ params }: PageProps<"/doctors/[id]">)
         </p>
       </section>
 
-      {/* Other doctors */}
-      <section aria-labelledby="others" className="reveal mt-8 sm:mt-12">
-        <h2 id="others" className="font-display text-2xl font-semibold tracking-tight sm:text-3xl text-ink">
-          Other <em className="ep-mark">Visiting Specialists</em>
-        </h2>
-        <ul className="reveal-group -mx-5 mt-4 flex gap-3 overflow-x-auto px-5 pb-2 snap-x snap-mandatory [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
-          {others.map((d) => (
-            <li key={d.id} className="reveal min-w-[240px] max-w-[260px] shrink-0 snap-start sm:min-w-0 sm:max-w-none">
-              <Link href={`/doctors/${d.id}`} className="card card-hover flex items-center gap-3.5 rounded-2xl p-4 group">
-                <DoctorMark doctor={d} className="size-12 rounded-full text-xl" />
-                <span className="flex min-w-0 flex-1 flex-col leading-snug">
-                  <span className="font-display text-lg font-medium text-ink group-hover:text-brand transition-colors truncate">{title(d)}</span>
-                  <span className="text-xs text-muted truncate">{d.name ? d.speciality : "Specialist Consultant"}</span>
-                  {d.experienceYears && (
-                    <span className="text-[11px] text-muted font-medium">{d.experienceYears} yrs experience</span>
-                  )}
-                </span>
-                <ChevronRightIcon className="size-5 shrink-0 text-muted group-hover:text-brand group-hover:translate-x-0.5 transition-all" />
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <p className="reveal mt-8 sm:mt-12">
+        <Link
+          href="/doctors"
+          className="group inline-flex min-h-11 items-center gap-1.5 text-base font-semibold text-ink"
+        >
+          <span className="underline decoration-line-strong underline-offset-4 group-hover:decoration-ink">All doctors</span>
+          <span aria-hidden="true" className="btn-arrow">→</span>
+        </Link>
+      </p>
     </div>
   );
 }

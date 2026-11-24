@@ -294,13 +294,6 @@ body {
   stroke-width: 2.3;
 }
 
-/* Scroll-aware floating WhatsApp step-aside while reading schedules */
-.ep-wa-float {
-  transition:
-    transform 0.25s var(--mo-ease),
-    opacity 0.25s ease,
-    background-color 0.2s ease;
-}
 
 /* Default static visible state so progressive enhancement can never hide content */
 .reveal {
@@ -377,10 +370,6 @@ body {
     animation: ep-wipe 0.48s var(--mo-ease) 0.14s backwards;
   }
 
-  .ep-wa-float.is-scrolling {
-    opacity: 0.55;
-    transform: translateY(6px) scale(0.95);
-  }
 
   /* Calm compositor-only settle + opacity pulse on ECG (zero SVG stroke-dashoffset main-thread repaint) */
   @keyframes ep-hero-settle {
@@ -621,19 +610,16 @@ body {
   animation: 180ms ease-out both vt-fade;
 }
 ::view-transition-group(site-header),
-::view-transition-group(tab-bar),
-::view-transition-group(wa-float) {
+::view-transition-group(tab-bar) {
   animation: none;
   z-index: 100;
 }
 ::view-transition-old(site-header),
-::view-transition-old(tab-bar),
-::view-transition-old(wa-float) {
+::view-transition-old(tab-bar) {
   display: none;
 }
 ::view-transition-new(site-header),
-::view-transition-new(tab-bar),
-::view-transition-new(wa-float) {
+::view-transition-new(tab-bar) {
   animation: none;
 }
 @keyframes vt-fade {

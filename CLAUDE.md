@@ -65,10 +65,11 @@ in under 60 seconds with no account. Reception confirms every request by phone.
 - Pages: `/` (simplified 25 Nov 2026, four bands only: hero = headline + live `TodayLine` + two buttons + art; DayPicker; tests as one
   row of names linking to /services; Visit = address, Get directions, rating line, photo. Keep it this lean: by-appointment
   doctors live on /doctors, the reports band on /services and /contact, the please-bring note on /book),
-  `/doctors` (find box, chips, cards, weekly schedule; `/doctors?type=skin` opens with a chip chosen), `/doctors/[id]`
+  `/doctors` (find box, chips, cards, weekly schedule folded in a `<details>`; `/doctors?type=skin` opens with a chip chosen), `/doctors/[id]`
   (one static page per doctor: details, days, Book/Call, `ShareButton`), `/book`, `/services`, `/faq`, `/contact`, `/privacy`.
   Page links shared by header, More sheet and footer live in `components/nav.ts` (a plain module: server and client can import it).
-  Header (`SiteHeader`), footer and WhatsApp button (`SiteChrome`), and the phone/tablet bottom tab bar (`TabBar`: Home,
+  Header (`SiteHeader`, which carries the only WhatsApp button on wide screens; the floating one was removed 25 Nov 2026),
+  footer (`SiteChrome`), and the phone/tablet bottom tab bar (`TabBar`: Home,
   Doctors, Book, More sheet) are mounted in `app/layout.tsx`.
 - Design v5 "Monochrome" (23 Nov 2026, branch `redesign/monochrome`): black/white/grey tokens in globals.css, one accent
   (`accent`, the logo's deep teal; `mint` on black), Inter (see Font above), bold headlines, frosted header and
@@ -103,7 +104,7 @@ in under 60 seconds with no account. Reception confirms every request by phone.
   version for 16–48px. `app/apple-icon.png` is the full emblem on white. The logo's gold and blue are the only
   colours allowed outside rule 6, and only inside the emblem.
 - Page transitions (23 Oct 2026): `PageTransition` (React `<ViewTransition>`) in `app/template.tsx` and `app/doctors/template.tsx`;
-  old page fades out, new one fades and rises 12px; header, tab bar and WhatsApp button are pinned (`view-transition-name`).
+  old page fades out, new one fades and rises 12px; header and tab bar are pinned (`view-transition-name`).
   `data-scroll-behavior="smooth"` on `<html>` is required in Next 16, or new pages open scrolled down under the header.
 - Motion and rhythm (23 Oct 2026): rounded buttons/cards press in, card links lift on hover, hero text `.rise`s,
   sections below the fold use `.reveal` (one-time fade-in via `RevealOnScroll.tsx`), the More sheet slides up.
