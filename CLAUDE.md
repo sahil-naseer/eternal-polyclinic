@@ -57,12 +57,14 @@ in under 60 seconds with no account. Reception confirms every request by phone.
   (the old desk) with staff sections: Patients, Appointments, Lab Reports, Doctors (schedule editor), Specialists &
   Availability, WhatsApp, Statistics, Owner Reports, Find Token, Staff. Lab gets a lab-only console. Panels in `components/admin/`.
 - Doctor schedule changes: one rule for browser and server, `lib/doctor-overrides.ts` (customOpd replaces days, leave has
-  from/until and ends by itself). Public pages read it live (`DoctorSittings`, `ByAppointmentSection`, DayPicker, booking).
+  from/until and ends by itself). Public pages read it live (`DoctorSittings`, `TodayLine`, DayPicker, booking).
   Changing a schedule never edits booked appointments; the editor lists the ones that no longer fit.
 - `components/`: page sections. `WhosInToday`, `BookingSection`, `WeeklySchedule` and `DirectoryFromLink` (reads `?type=`/`?q=`)
   run in the visitor's browser (`useClinicMinute` / `useSearchParams`); the prebuilt pages hold placeholders sized like the
   real thing (no layout jump; keep it that way). `useSearchParams` users sit inside `<Suspense>`.
-- Pages: `/` (hero with find box and chips, dark Today card, specialists, Book-in-3-steps band with `WhatsAppPreview`, tests, visit),
+- Pages: `/` (simplified 25 Nov 2026, four bands only: hero = headline + live `TodayLine` + two buttons + art; DayPicker; tests as one
+  row of names linking to /services; Visit = address, Get directions, rating line, photo. Keep it this lean: by-appointment
+  doctors live on /doctors, the reports band on /services and /contact, the please-bring note on /book),
   `/doctors` (find box, chips, cards, weekly schedule; `/doctors?type=skin` opens with a chip chosen), `/doctors/[id]`
   (one static page per doctor: details, days, Book/Call, `ShareButton`), `/book`, `/services`, `/faq`, `/contact`, `/privacy`.
   Page links shared by header, More sheet and footer live in `components/nav.ts` (a plain module: server and client can import it).
