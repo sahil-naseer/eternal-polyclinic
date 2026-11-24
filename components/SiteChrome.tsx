@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { clinic } from "@/data/clinic";
 import { formatTime } from "@/lib/schedule";
-import { ChatIcon } from "./Icons";
 import { Logo } from "./Logo";
 import { NAV } from "./nav";
 import { TabBar } from "./TabBar";
@@ -98,24 +97,8 @@ export function SiteFooter() {
 }
 
 export function QuickActions() {
-  return (
-    <>
-      {/* Phones and tablets: bottom tab bar with Home, Doctors, Book and More */}
-      <TabBar />
-
-      {/* Wide screens: floating WhatsApp button */}
-      <aside aria-label="WhatsApp">
-        <a
-          href={`https://wa.me/${clinic.whatsapp}`}
-          aria-label={`Message the clinic on WhatsApp, ${clinic.whatsappDisplay}`}
-          title="WhatsApp"
-          className="ep-wa-float fixed bottom-6 right-6 z-40 hidden [view-transition-name:wa-float] size-14 items-center justify-center rounded-full bg-brand text-white ring-1 ring-white/15 shadow-elevated hover:bg-brand-dark hover:scale-105 active:scale-95 transition-all lg:inline-flex"
-        >
-          <ChatIcon className="size-7 text-white" />
-        </a>
-      </aside>
-    </>
-  );
+  // Phones and tablets: bottom tab bar. Wide screens use the header's WhatsApp button (no floating button).
+  return <TabBar />;
 }
 
 /** Title block at the top of inner pages. */

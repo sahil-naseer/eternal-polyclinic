@@ -1,13 +1,12 @@
 "use client";
 
 // One-shot motion runtime: staggered scroll reveals, hero count-up stats,
-// and scroll-state guard for floating UI.
+// and pausing the hero art when it scrolls off screen.
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 const REDUCED = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const FINE_POINTER = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
 function setupScrollReveals(timers: number[]) {
   document.querySelectorAll<HTMLElement>(".reveal-group").forEach((group) => {
@@ -119,33 +118,6 @@ function runCountUps() {
   };
 }
 
-function setupScrollState() {
-  const waFloat = document.querySelector<HTMLElement>(".ep-wa-float");
-  if (!waFloat || !FINE_POINTER()) return () => {};
-
-  let scrollTimer = 0;
-  let active = false;
-
-  const onScroll = () => {
-    if (!active) {
-      active = true;
-      waFloat.classList.add("is-scrolling");
-    }
-    window.clearTimeout(scrollTimer);
-    scrollTimer = window.setTimeout(() => {
-      active = false;
-      waFloat.classList.remove("is-scrolling");
-    }, 180);
-  };
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  return () => {
-    window.removeEventListener("scroll", onScroll);
-    window.clearTimeout(scrollTimer);
-    waFloat.classList.remove("is-scrolling");
-  };
-}
-
 function setupHeroVisibility() {
   const hero = document.querySelector<HTMLElement>(".ep-il-hero");
   if (!hero || typeof IntersectionObserver === "undefined") return () => {};
@@ -171,13 +143,11 @@ export function RevealOnScroll() {
     const timers: number[] = [];
     const stopReveals = setupScrollReveals(timers);
     const stopCountUps = runCountUps();
-    const stopScroll = setupScrollState();
     const stopHero = setupHeroVisibility();
 
     return () => {
       stopReveals();
       stopCountUps();
-      stopScroll();
       stopHero();
       timers.forEach((id) => window.clearTimeout(id));
     };

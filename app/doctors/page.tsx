@@ -16,13 +16,7 @@ export default function DoctorsPage() {
   return (
     <>
       <PageIntro title="Our doctors">
-        Each specialist sits on fixed days every week with dedicated consultation slots.
-        <a
-          href="#schedule"
-          className="mt-2 inline-flex min-h-9 items-center gap-1.5 rounded-full border border-brand-line bg-brand-tint px-3.5 py-1 text-xs font-bold text-accent sm:hidden"
-        >
-          Jump to Weekly Timetable ↓
-        </a>
+        Find a specialist and the days they sit.
       </PageIntro>
 
       <section aria-labelledby="all-doctors" className="mx-auto max-w-6xl px-5 pb-6">
@@ -41,12 +35,19 @@ export default function DoctorsPage() {
         </p>
       </section>
 
-      <section aria-labelledby="schedule" className="reveal mx-auto max-w-6xl scroll-mt-24 px-5 pb-24 pt-8 sm:pb-16 sm:pt-10">
-        <h2 id="schedule" className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-          Weekly OPD schedule
-        </h2>
-        <p className="mb-4 mt-1 text-muted sm:mb-6">Timings can change on holidays, so call if you&apos;re unsure.</p>
-        <WeeklySchedule />
+      {/* Weekly timetable, folded by default to keep the page short (native <details>: no JS, keyboard friendly) */}
+      <section aria-label="Weekly OPD schedule" className="reveal mx-auto max-w-6xl scroll-mt-24 px-5 pb-24 pt-6 sm:pb-16 sm:pt-8">
+        <details id="schedule" className="group">
+          <summary className="ep-pill inline-flex min-h-12 cursor-pointer list-none items-center gap-2 rounded-xl border border-line-strong bg-white px-5 text-sm sm:text-base font-semibold text-ink hover:border-brand hover:bg-ground transition-colors [&::-webkit-details-marker]:hidden">
+            <span className="group-open:hidden">Show weekly timetable</span>
+            <span className="hidden group-open:inline">Hide weekly timetable</span>
+            <span aria-hidden="true" className="transition-transform duration-200 group-open:rotate-180">↓</span>
+          </summary>
+          <div className="mt-5 sm:mt-6">
+            <p className="mb-4 text-muted sm:mb-6">Timings can change on holidays, so call if you&apos;re unsure.</p>
+            <WeeklySchedule />
+          </div>
+        </details>
       </section>
     </>
   );
