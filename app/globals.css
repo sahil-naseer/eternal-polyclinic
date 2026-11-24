@@ -127,10 +127,6 @@ body {
   textarea {
     font-size: 16px;
   }
-  /* Compact bottom breathing room before #days on phones (hero fits above bottom TabBar) */
-  .hero-mobile-screen {
-    padding-bottom: 1rem;
-  }
   .ep-il-hero {
     max-height: 128px;
     width: auto;
@@ -162,6 +158,17 @@ body {
     background-color 0.2s ease,
     border-color 0.2s ease,
     color 0.2s ease;
+}
+
+@keyframes ep-breathe {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
 }
 
 @keyframes rise {
@@ -214,9 +221,17 @@ body {
   transform: scaleX(1);
 }
 
-.ep-hero-dot-bg {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
-  background-size: 24px 24px;
+/* Live "Today" dot in the home hero: grey until the browser knows who sits today, then accent with a slow
+   breathing ring (transform/opacity only; off under reduced motion). */
+.ep-live-dot {
+  position: relative;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-line-strong);
+}
+.ep-live-dot.is-live {
+  background: var(--color-accent);
 }
 
 /* Isometric Clinical & Live ECG Hero Illustration */
@@ -301,24 +316,33 @@ body {
   /* Transform-only hero arrival so above-the-fold text is visible on first paint (LCP). */
   .rise,
   .hero-fade-in {
-    animation: rise 0.38s var(--mo-ease) both;
+    animation: rise 0.5s var(--mo-ease) both;
   }
   .rise-1 {
-    animation-delay: 35ms;
+    animation-delay: 0ms;
   }
   .rise-2 {
-    animation-delay: 70ms;
+    animation-delay: 90ms;
   }
   .rise-3 {
-    animation-delay: 105ms;
+    animation-delay: 180ms;
   }
   .rise-4 {
-    animation-delay: 140ms;
+    animation-delay: 270ms;
   }
 
   a:hover .btn-arrow,
   button:hover .btn-arrow {
     animation: mo-nudge 0.45s var(--mo-ease);
+  }
+
+  .ep-live-dot.is-live::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--color-accent);
+    animation: ep-breathe 2.4s ease-out infinite;
   }
 
   html.reveal-ready .reveal:not(.is-visible) {

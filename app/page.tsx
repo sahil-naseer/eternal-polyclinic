@@ -1,40 +1,17 @@
-// Home (design v3, "day-first"): hero, "Who sits on <day>" picker, by-appointment doctors,
-// three booking steps, tests and medicines, and how to find us. All facts come from data/clinic.ts.
+// Home (design v5, simplified 25 Nov 2026): four bands only. Hero (headline, live "Today" line, two
+// buttons, art), "Who sits on <day>" picker, tests as one row of names, and how to find us.
+// All facts come from data/clinic.ts. By-appointment doctors are listed on /doctors.
 
 import type { Metadata } from "next";
 import Link from "next/link";
 import { clinic, services } from "@/data/clinic";
 import { DayPicker } from "@/components/DayPicker";
-import { ByAppointmentSection } from "@/components/ByAppointmentSection";
-import { HeroRightColumn } from "@/components/HeroRightColumn";
 import { HeroClinicalArt } from "@/components/HeroClinicalArt";
 import { LegacyBookingLink } from "@/components/LegacyBookingLink";
 import { ReceptionPhoto } from "@/components/ClinicPhoto";
-import { EmergencyNote } from "@/components/EmergencyNote";
-import {
-  GoogleIcon,
-  MapPinIcon,
-  PhoneIcon,
-  ReportIcon,
-  ServiceIcon,
-  StethoscopeIcon,
-  WhatsAppIcon,
-} from "@/components/Icons";
-
-function UltrasoundWaveIcon({ className = "size-5" }: { className?: string }) {
-  return <ServiceIcon id="ultrasound" className={className} />;
-}
-
-function PharmacyIcon({ className = "size-5" }: { className?: string }) {
-  return <ServiceIcon id="pharmacy" className={className} />;
-}
-
-const heroHighlights = [
-  { lines: ["Visiting", "Specialists"], href: "#days", Icon: StethoscopeIcon },
-  { lines: ["Ultrasound", "Scans"], href: "/services#ultrasound", Icon: UltrasoundWaveIcon },
-  { lines: ["PDF Lab", "Reports"], href: "/services#digital-reports", Icon: ReportIcon },
-  { lines: ["In-House", "Pharmacy"], href: "/services#pharmacy", Icon: PharmacyIcon },
-] as const;
+import { TodayLine } from "@/components/TodayLine";
+import { MapPinIcon, PhoneIcon, ServiceIcon } from "@/components/Icons";
+import { formatTimeShort } from "@/lib/schedule";
 
 // Every page names its own address for search engines (alternates.canonical); this is "/".
 export const metadata: Metadata = { alternates: { canonical: "/" } };
@@ -44,225 +21,124 @@ export default function Home() {
     <>
       <LegacyBookingLink />
 
-      {/* Hero: Crisp white architectural canvas with isometric Clinical & Live ECG illustration */}
+      {/* Hero: one headline, one live line, two buttons. The art drifts slowly behind on scroll. */}
       <section className="relative overflow-hidden bg-white">
-        <div className="ep-hero-dot-bg pointer-events-none absolute inset-0 z-0 opacity-45 sm:opacity-60" aria-hidden="true" />
-        <canvas className="ep-hero-dots pointer-events-none absolute inset-0 z-0 hidden lg:block h-full w-full" aria-hidden="true" />
-        <div className="hero-mobile-screen relative mx-auto flex w-full max-w-7xl flex-col justify-start gap-3 px-5 pt-4 sm:gap-4 sm:px-8 sm:pt-7 sm:pb-12 min-[72rem]:grid min-[72rem]:min-h-[650px] min-[72rem]:grid-cols-[minmax(0,1fr)_336px] min-[72rem]:gap-8 min-[72rem]:px-10 min-[72rem]:pt-11 min-[72rem]:pb-16 xl:min-h-[680px] xl:grid-cols-[minmax(0,1fr)_350px]">
-          {/* 1. Top-Left Content Block */}
-          <div className="relative z-10 flex min-w-0 flex-col items-start gap-3 sm:gap-4 min-[72rem]:gap-5 min-[72rem]:max-w-[36rem] min-[72rem]:pt-2 min-[72rem]:pb-8 xl:max-w-[39rem]">
-            {/* Main Headline (>= 30px mobile, >= 36px tablet, >= 48px desktop) */}
-            <h1 className="rise rise-1 max-w-full font-sans font-bold tracking-[-0.04em] text-ink text-[clamp(1.65rem,7.2vw,2.2rem)] leading-[1.06] sm:text-[2.9rem] sm:leading-[1.04] min-[72rem]:text-[3.4rem] xl:text-[3.75rem]">
-              Specialist Doctors &amp;{" "}
+        <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 pt-10 pb-6 sm:px-8 sm:pt-16 sm:pb-12 min-[72rem]:min-h-[620px] min-[72rem]:justify-center min-[72rem]:px-10 min-[72rem]:py-20">
+          <div className="relative z-10 flex min-w-0 flex-col items-start min-[72rem]:max-w-[34rem] xl:max-w-[38rem]">
+            <h1 className="rise rise-1 max-w-full font-sans font-bold tracking-[-0.045em] text-ink text-[clamp(2.1rem,9.6vw,2.6rem)] leading-[1.02] sm:text-[3.6rem] min-[72rem]:text-[4.25rem] xl:text-[4.75rem]">
+              Specialist doctors
               <span className="block">
-                Diagnostics in <span className="ep-mark ep-mark-hero">Sopore</span>
+                in <span className="ep-mark ep-mark-hero">Sopore</span>
               </span>
             </h1>
 
-            {/* Primary CTA Buttons */}
-            <div className="rise rise-2 flex flex-wrap items-center gap-2.5 sm:gap-3">
+            <TodayLine className="rise rise-2 mt-5 sm:mt-7" />
+
+            <div className="rise rise-3 mt-6 sm:mt-8 flex w-full flex-wrap items-center gap-2.5 sm:w-auto sm:gap-3">
               <a
                 href="#days"
-                className="shadow-elevated group inline-flex min-h-12 sm:min-h-13 items-center justify-center gap-2.5 rounded-xl bg-brand px-5 sm:px-7 py-2.5 sm:py-3 text-sm sm:text-base font-bold text-white hover:bg-brand-dark transition-all whitespace-nowrap"
+                className="group inline-flex min-h-12 sm:min-h-13 flex-1 sm:flex-none items-center justify-center gap-2.5 rounded-xl bg-brand px-5 sm:px-7 text-sm sm:text-base font-bold text-white hover:bg-brand-dark transition-all whitespace-nowrap"
               >
-                <span>Check OPD Schedule</span>
+                <span>This week&rsquo;s doctors</span>
                 <span className="btn-arrow inline-flex size-6 items-center justify-center rounded-full bg-white text-ink transition-transform duration-200 group-hover:translate-x-0.5">
                   <span aria-hidden="true" className="text-xs font-bold leading-none">→</span>
                 </span>
               </a>
-              <Link
-                href="/doctors"
-                className="inline-flex min-h-12 sm:min-h-13 items-center justify-center rounded-xl border border-line-strong bg-white px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-ink hover:border-brand hover:bg-ground transition-all whitespace-nowrap"
+              <a
+                href={`tel:${clinic.phone}`}
+                className="inline-flex min-h-12 sm:min-h-13 items-center justify-center gap-2 rounded-xl border border-line-strong bg-white px-5 sm:px-6 text-sm sm:text-base font-semibold text-ink hover:border-brand hover:bg-ground transition-all whitespace-nowrap tabular-nums lining-nums"
               >
-                View All Doctors
-              </Link>
-            </div>
-
-            {/* 4 Interactive Clinic-Accurate Value Proposition Shortcuts */}
-            <div className="rise rise-3 grid w-full max-w-[26rem] sm:max-w-[32rem] grid-cols-4 gap-1.5 min-[390px]:gap-2 sm:gap-3 pt-0.5">
-              {heroHighlights.map(({ lines, href, Icon }) => (
-                <Link
-                  key={lines.join(" ")}
-                  href={href}
-                  className="group flex flex-col items-start gap-1.5 rounded-xl border border-line bg-ground p-2 sm:p-2.5 hover:border-brand-line hover:bg-brand-tint/40 transition-colors"
-                >
-                  <span className="flex size-8 min-[390px]:size-9 sm:size-10 items-center justify-center rounded-lg bg-brand-tint text-accent ring-1 ring-brand-line/80 group-hover:scale-105 transition-transform">
-                    <Icon className="size-4 min-[390px]:size-4.5 sm:size-5" />
-                  </span>
-                  <span className="text-[10px] min-[375px]:text-[11px] min-[390px]:text-[11.5px] sm:text-[12.5px] font-semibold leading-[1.18] tracking-[-0.01em] text-charcoal group-hover:text-ink">
-                    {lines[0]}
-                    <span className="block">{lines[1]}</span>
-                  </span>
-                </Link>
-              ))}
+                <PhoneIcon className="size-4 shrink-0" />
+                <span>
+                  Call<span className="hidden sm:inline"> {clinic.phoneDisplay}</span>
+                </span>
+              </a>
             </div>
           </div>
 
-          {/* 2. Centerpiece Isometric Clinical & Live ECG Vector Illustration */}
+          {/* Isometric clinical illustration: slow parallax (CSS scroll-driven, off under reduced motion) */}
           <div
             data-hero-art=""
-            className="ep-hero-art pointer-events-none relative z-0 mx-auto my-0 flex w-full max-w-[34rem] items-center justify-center select-none sm:my-4 min-[72rem]:absolute min-[72rem]:left-[34%] min-[72rem]:top-[3%] min-[72rem]:mx-0 min-[72rem]:my-0 min-[72rem]:max-w-none min-[72rem]:w-[58%] xl:left-[35%] xl:top-[2%] xl:w-[56%]"
+            className="ep-hero-art pointer-events-none relative z-0 mx-auto flex w-full max-w-[34rem] items-center justify-center select-none min-[72rem]:absolute min-[72rem]:right-[2%] min-[72rem]:top-1/2 min-[72rem]:-translate-y-1/2 min-[72rem]:mx-0 min-[72rem]:max-w-none min-[72rem]:w-[52%]"
           >
             <div className="ep-parallax w-full">
               <HeroClinicalArt />
             </div>
-          </div>
-
-          {/* 3. Right-Side Compact Appointment & Live Clinic Cards (tablet & desktop) */}
-          <div className="hidden sm:block relative z-10 w-full min-[72rem]:self-end min-[72rem]:pt-46 xl:pt-50">
-            <HeroRightColumn />
           </div>
         </div>
       </section>
 
       <DayPicker />
 
-      {/* Doctors without fixed OPD days (live: follows the admin's schedule changes) */}
-      <ByAppointmentSection />
-
-      {/* Tests and medicines */}
+      {/* Tests and medicines: names only; details live on /services */}
       <section aria-labelledby="services" className="bg-white">
-        <div className="mx-auto max-w-6xl px-5 py-8 sm:px-6 sm:py-20">
-          <div className="reveal reveal-left">
-            <p className="eyebrow text-muted">In the clinic</p>
-            <h2 id="services" className="mt-2 sm:mt-3 text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
+        <div className="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-28">
+          <div className="reveal reveal-left flex flex-wrap items-end justify-between gap-3">
+            <h2 id="services" className="text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
               Tests and <em className="ep-mark">medicines</em>
             </h2>
+            <Link
+              href="/services"
+              className="group inline-flex min-h-11 items-center gap-1.5 text-sm sm:text-base font-semibold text-ink"
+            >
+              <span className="underline decoration-line-strong underline-offset-4 group-hover:decoration-ink">All tests</span>
+              <span aria-hidden="true" className="btn-arrow">→</span>
+            </Link>
           </div>
-          <ul className="reveal-group mt-5 sm:mt-8 grid grid-cols-2 gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
+          <ul className="reveal-group mt-6 sm:mt-10 grid grid-cols-2 gap-x-4 gap-y-1 sm:grid-cols-3 lg:grid-cols-6 border-t border-line">
             {services.map((s) => (
-              <li key={s.id} className="reveal" data-draw="">
+              <li key={s.id} className="reveal border-b border-line lg:border-b-0">
                 <Link
                   href={`/services#${s.id}`}
-                  className="card card-hover flex h-full flex-col sm:flex-row items-start gap-2.5 sm:gap-4 rounded-2xl p-3.5 sm:p-5"
+                  className="group flex min-h-16 items-center gap-3 py-3 lg:flex-col lg:items-start lg:gap-3 lg:py-6"
                 >
-                  <span className="flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-xl bg-brand-tint text-accent ring-1 ring-brand-line/80">
-                    <ServiceIcon id={s.id} className="size-5 sm:size-6" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block text-base sm:text-lg font-semibold leading-snug text-ink">{s.short}</span>
-                    <span className="mt-0.5 block line-clamp-2 sm:line-clamp-none text-xs sm:text-[15px] leading-snug text-muted">{s.description}</span>
+                  <ServiceIcon id={s.id} className="size-6 shrink-0 text-accent transition-transform duration-200 group-hover:-translate-y-0.5" />
+                  <span className="text-[15px] sm:text-base font-semibold leading-snug text-ink group-hover:underline underline-offset-4 decoration-line-strong">
+                    {s.short}
                   </span>
                 </Link>
               </li>
             ))}
           </ul>
-
-          {/* Quick Reports WhatsApp prompt */}
-          <div className="reveal mt-4 sm:mt-6">
-          <div className="ep-scroll-scale ep-on-dark flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 sm:gap-6 rounded-3xl bg-night p-5 text-white sm:p-8">
-            <div className="flex items-start sm:items-center gap-3 sm:gap-3.5">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-mint ring-1 ring-white/15">
-                <ReportIcon className="size-5" />
-              </span>
-              <div>
-                <strong className="block text-base sm:text-xl font-semibold tracking-tight text-white">
-                  Collect Your Reports on WhatsApp
-                </strong>
-                <p className="mt-0.5 text-xs sm:text-sm text-night-muted">
-                  No need to travel back to Sopore. WhatsApp or call our lab technician ({clinic.labTechPhoneDisplay}) to receive your digital PDF report.
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-              <a
-                href={clinic.reportRequestUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-white px-4 text-sm font-bold text-ink hover:bg-white/85 transition-all"
-              >
-                <WhatsAppIcon className="size-4 shrink-0" />
-                <span>Get Report</span>
-              </a>
-              <a
-                href={`tel:${clinic.labTechPhone}`}
-                className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-white/30 px-4 text-sm font-semibold text-white hover:border-white transition-colors"
-              >
-                <PhoneIcon className="size-3.5 shrink-0 text-mint" />
-                <span>Call Lab ({clinic.labTechPhoneDisplay})</span>
-              </a>
-            </div>
-          </div>
-          </div>
         </div>
       </section>
 
-      {/* Visit */}
+      {/* Visit: address, one button, rating line, photo */}
       <section aria-labelledby="visit" className="bg-ground border-t border-line">
-        <div className="mx-auto grid max-w-6xl gap-5 sm:gap-8 px-5 py-8 sm:px-6 sm:py-20 lg:grid-cols-2 lg:items-center">
+        <div className="mx-auto grid max-w-6xl gap-8 sm:gap-12 px-5 py-14 sm:px-6 sm:py-28 lg:grid-cols-2 lg:items-center">
           <div className="reveal reveal-left">
-            <p className="eyebrow text-muted">Visit us</p>
-            <h2 id="visit" className="mt-2 sm:mt-3 text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
+            <h2 id="visit" className="text-[2rem] font-semibold leading-[1.08] tracking-[-0.035em] text-ink sm:text-5xl">
               Opposite <em className="ep-mark">SDH Hospital</em>
             </h2>
-            <p className="mt-3 sm:mt-4 flex items-start gap-2 text-base sm:text-lg font-semibold">
-              <MapPinIcon className="mt-1 size-5 shrink-0 text-brand" />
+            <p className="mt-4 sm:mt-6 flex items-start gap-2 text-base sm:text-lg text-ink">
+              <MapPinIcon className="mt-1 size-5 shrink-0 text-ink" />
               <span>
                 {clinic.address}
-                <span className="block text-sm sm:text-base font-normal text-muted">{clinic.location.name} building</span>
+                <span className="block text-sm sm:text-base text-muted">
+                  {clinic.location.name} building · open daily {formatTimeShort(clinic.hours.open)} – {formatTimeShort(clinic.hours.close)}
+                </span>
               </span>
             </p>
-            <div className="mt-4 sm:mt-6 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
+            <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
               <a
                 href={clinic.mapUrl}
-                className="col-span-2 sm:col-span-1 inline-flex min-h-12 items-center justify-center rounded-xl bg-brand px-6 text-base font-bold text-white hover:bg-brand-dark"
+                className="inline-flex min-h-12 items-center justify-center rounded-xl bg-brand px-7 text-base font-bold text-white hover:bg-brand-dark"
               >
                 Get directions
               </a>
               <a
-                href={`tel:${clinic.phone}`}
-                className="inline-flex min-h-12 items-center justify-center rounded-xl border-[1.5px] border-ink px-3 sm:px-6 text-sm sm:text-base font-bold hover:bg-ink hover:text-white whitespace-nowrap"
-              >
-                Call {clinic.phoneDisplay}
-              </a>
-              <a
-                href={clinic.locationShareUrl}
+                href={clinic.googleRating.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center justify-center gap-1.5 sm:gap-2 rounded-xl border border-line-strong bg-white px-3 sm:px-5 text-sm sm:text-base font-bold text-charcoal hover:border-ink hover:text-brand transition-colors whitespace-nowrap"
-                title="Forward address and map link to family or drivers on WhatsApp"
+                className="group inline-flex min-h-11 items-center gap-1.5 text-sm sm:text-base text-ink tabular-nums lining-nums"
               >
-                <WhatsAppIcon className="size-4 sm:size-4.5 text-ink shrink-0" />
-                <span>Share location</span>
+                <span className="font-semibold">{clinic.googleRating.score}</span>
+                <span aria-hidden="true">★</span>
+                <span className="text-muted underline decoration-line-strong underline-offset-4 group-hover:decoration-ink">
+                  {clinic.googleRating.count} Google reviews
+                </span>
               </a>
             </div>
-
-            {/* Google Reviews Card */}
-            <div className="mt-6 rounded-2xl border border-line bg-white p-4 sm:p-5 shadow-card">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-ground border border-line">
-                    <GoogleIcon className="size-5" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-display text-xl font-medium tracking-tight text-ink tabular-nums lining-nums">
-                        {clinic.googleRating.score}
-                      </span>
-                      <span className="text-ink text-base leading-none tracking-tight" aria-hidden="true">★★★★★</span>
-                      <span className="text-xs font-semibold text-muted">on Google</span>
-                    </div>
-                    <p className="text-xs text-muted mt-0.5">
-                      Based on {clinic.googleRating.count} patient ratings & reviews
-                    </p>
-                  </div>
-                </div>
-                <a
-                  href={clinic.googleRating.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl border border-line-strong bg-ground px-4 text-xs font-bold uppercase tracking-wider text-charcoal hover:border-brand hover:text-brand transition-colors whitespace-nowrap shrink-0"
-                >
-                  <span>Review on Google</span>
-                  <span aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </div>
-
-            <p className="mt-6 text-base text-charcoal">
-              <span className="font-bold">Please bring</span> old prescriptions, any test reports, and a list of the medicines you take now.
-            </p>
-            <EmergencyNote className="mt-4" />
           </div>
           <Link href="/contact" aria-label="Map and directions" className="reveal reveal-right block">
             <span className="ep-scroll-scale block overflow-hidden rounded-3xl">
