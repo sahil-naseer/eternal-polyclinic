@@ -68,10 +68,9 @@ export function DayPicker() {
   return (
     <div className="bg-white">
       <section id="days" aria-labelledby="days-title" className="rounded-t-[2rem] sm:rounded-t-[2.75rem] border-t border-line/80 bg-ground scroll-mt-20">
-      <div className="mx-auto max-w-6xl px-5 py-8 sm:px-6 sm:py-20">
+      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-28">
         <div className="reveal">
-          <p className="eyebrow text-muted">Visiting specialists</p>
-          <h2 id="days-title" className="mt-3 whitespace-nowrap text-[1.375rem] min-[360px]:text-[1.5rem] min-[390px]:text-[1.6875rem] font-semibold leading-[1.12] tracking-[-0.035em] text-ink sm:text-5xl">
+          <h2 id="days-title" className="whitespace-nowrap text-[1.375rem] min-[360px]:text-[1.5rem] min-[390px]:text-[1.6875rem] font-semibold leading-[1.12] tracking-[-0.035em] text-ink sm:text-5xl">
             Who sits on{" "}
             <em key={selected} className="ep-mark">
               {dayName}

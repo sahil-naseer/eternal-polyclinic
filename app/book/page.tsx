@@ -3,6 +3,7 @@ import Link from "next/link";
 import { clinic } from "@/data/clinic";
 import { PageIntro } from "@/components/SiteChrome";
 import { EmergencyNote } from "@/components/EmergencyNote";
+import { formatTime } from "@/lib/schedule";
 import { CalendarIcon, MapPinIcon, PhoneIcon, ReportIcon, UserIcon, WhatsAppIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
@@ -31,7 +32,10 @@ export default function BookPage() {
               Message or call reception
             </h2>
             <p className="mt-2 text-sm sm:text-base leading-relaxed text-muted">
-              Ask about specialist OPD timings, doctor availability, consultation fees, or diagnostic scans. Reception answers daily during clinic hours (8 am – 9 pm).
+              Ask about specialist OPD timings, doctor availability, consultation fees, or diagnostic scans. Reception answers daily during clinic hours ({formatTime(clinic.hours.open)} – {formatTime(clinic.hours.close)}).
+            </p>
+            <p className="mt-3 text-sm sm:text-base leading-relaxed text-ink">
+              <span className="font-semibold">Please bring</span> old prescriptions, any test reports, and a list of the medicines you take now.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
