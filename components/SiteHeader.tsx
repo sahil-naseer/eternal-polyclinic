@@ -15,14 +15,14 @@ import { formatTimeShort } from "@/lib/schedule";
 /** Thin grey strip above the header: the clinic's daily hours and a link to this week's doctors. Scrolls away. */
 export function AnnouncementStrip() {
   return (
-    <div className="bg-ground text-center text-[13px] leading-snug text-charcoal sm:text-sm">
+    <aside aria-label="Opening hours" className="bg-ground text-center text-[13px] leading-snug text-charcoal sm:text-sm">
       <p className="mx-auto max-w-6xl px-4 py-2.5">
         Open daily {formatTimeShort(clinic.hours.open)} – {formatTimeShort(clinic.hours.close)}<span className="hidden sm:inline"> · lab, scans and pharmacy</span>.{" "}
         <Link href="/#days" className="whitespace-nowrap font-semibold text-accent underline-offset-4 hover:underline">
           See who&rsquo;s in <span aria-hidden="true">›</span>
         </Link>
       </p>
-    </div>
+    </aside>
   );
 }
 
