@@ -66,19 +66,22 @@ export function DayPicker() {
     : [];
 
   return (
-    <div className="bg-white">
-      <section id="days" aria-labelledby="days-title" className="rounded-t-[2rem] sm:rounded-t-[2.75rem] border-t border-line/80 bg-ground scroll-mt-20">
-      <div className="mx-auto max-w-6xl px-5 py-14 sm:px-6 sm:py-28">
-        <div className="reveal">
-          <h2 id="days-title" className="whitespace-nowrap text-[1.375rem] min-[360px]:text-[1.5rem] min-[390px]:text-[1.6875rem] font-semibold leading-[1.12] tracking-[-0.035em] text-ink sm:text-5xl">
+    <div className="bg-ground">
+      <section id="days" aria-labelledby="days-title" className="bg-ground scroll-mt-20">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6 sm:py-28 lg:py-32">
+        <div className="reveal text-center">
+          <h2 id="days-title" className="ep-headline whitespace-nowrap text-ink">
             Who sits on{" "}
             <em key={selected} className="ep-mark">
               {dayName}
             </em>
           </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base text-muted sm:mt-5 sm:text-xl">
+            Visiting specialists sit on fixed days.
+          </p>
         </div>
 
-        <div role="group" aria-label="Choose a day" className="mt-5 sm:mt-8 grid grid-cols-7 gap-1 min-[390px]:gap-1.5 sm:gap-3">
+        <div role="group" aria-label="Choose a day" className="mt-8 sm:mt-12 grid grid-cols-7 gap-1 min-[390px]:gap-1.5 sm:gap-3">
           {DAY_ORDER.map((day) => {
             const count = sittingsOn(day).length;
             const on = day === selected;
@@ -112,7 +115,7 @@ export function DayPicker() {
           })}
         </div>
 
-        <div aria-live="polite" className="reveal mt-5 min-h-36 sm:min-h-40 sm:mt-8">
+        <div aria-live="polite" className="reveal mx-auto mt-5 min-h-36 max-w-5xl sm:min-h-40 sm:mt-8">
           {list.length === 0 ? (
             <p key={selected} className="card ep-day-swap rounded-2xl p-5 sm:p-6 text-base text-muted sm:text-lg">
               No specialist OPD on {dayName}. Pick another day above, or call{" "}
@@ -140,7 +143,7 @@ export function DayPicker() {
                   <li
                     key={`${doctor.id}-${session.day}`}
                     style={{ "--mo-i": Math.min(idx, 6) } as CSSProperties}
-                    className="card ep-stagger-item grid gap-2 rounded-2xl p-3.5 sm:grid-cols-[11rem_1fr_auto] sm:items-center sm:gap-6 sm:p-6"
+                    className="card ep-stagger-item grid gap-2 rounded-3xl p-3.5 sm:grid-cols-[11rem_1fr_auto] sm:items-center sm:gap-6 sm:p-6"
                   >
                     <p className="hidden sm:block font-display text-xl font-medium tracking-tight sm:text-2xl tabular-nums lining-nums">
                       {formatTime(session.start)}

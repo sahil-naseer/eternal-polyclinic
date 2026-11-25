@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { clinic } from "@/data/clinic";
-import { SiteHeader } from "@/components/SiteHeader";
+import { AnnouncementStrip, SiteHeader } from "@/components/SiteHeader";
 import { QuickActions, SiteFooter } from "@/components/SiteChrome";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { clinicSchema, jsonLd } from "@/lib/structured-data";
@@ -56,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
+        <AnnouncementStrip />
         <SiteHeader />
         <main id="main" className="flex-1 w-full max-w-full min-w-0 pb-20 lg:pb-0 overflow-x-clip">
           {children}

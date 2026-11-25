@@ -95,6 +95,13 @@ export const clinic = {
     width: 1200,
     height: 800,
   },
+  /** The clinic's shopfront from the street (26 Nov 2026, the owner's photo): public/photos/storefront-{640,800,1080}.webp, 3:4. */
+  storefrontPhoto: {
+    src: "/photos/storefront",
+    alt: "The front of Eternal Polyclinic, with its blue sign above the pharmacy",
+    width: 1080,
+    height: 1440,
+  },
   mapUrl: "https://www.google.com/maps/dir/?api=1&destination=34.2938233,74.455089",
   mapEmbedUrl: "https://maps.google.com/maps?q=34.2938233,74.455089&z=18&output=embed",
   /** Pre-filled WhatsApp message to easily share the clinic's location and landmark with drivers or relatives */

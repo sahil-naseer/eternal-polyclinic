@@ -71,6 +71,13 @@ in under 60 seconds with no account. Reception confirms every request by phone.
   Header (`SiteHeader`, which carries the only WhatsApp button on wide screens; the floating one was removed 25 Nov 2026),
   footer (`SiteChrome`), and the phone/tablet bottom tab bar (`TabBar`: Home,
   Doctors, Book, More sheet) are mounted in `app/layout.tsx`.
+- Design v6 "Bands" (26 Nov 2026, branch `redesign/apple-inspired`, not merged yet): original layout in the spirit of big
+  product pages (no copied code, text, images, icons or fonts). Home = full-width bands, one message each, centred:
+  white hero (`.ep-display` headline, TodayLine, black pill + outline pill, big drawing below) → grey DayPicker →
+  black "Tests and medicines" with dark tiles (`.ep-tile`) → white Visit with a big photo. Band headings use `.ep-headline`,
+  inner page titles `.ep-display-sm` (PageIntro). Thin `AnnouncementStrip` (hours + "See who's in") above a slimmer header
+  with small text links; footer is light grey with small type. Nothing loops forever any more: the live dot breathes
+  3 times, the ECG brightens twice, the slips bob once. Styles: "Design v6" block at the end of globals.css.
 - Design v5 "Monochrome" (23 Nov 2026, branch `redesign/monochrome`): black/white/grey tokens in globals.css, one accent
   (`accent`, the logo's deep teal; `mint` on black), Inter (see Font above), bold headlines, frosted header and
   tab bar (`frosted` utility), pill buttons (globals.css turns `inline-flex` links/buttons with rounded-xl/lg into pills; add
@@ -97,7 +104,9 @@ in under 60 seconds with no account. Reception confirms every request by phone.
 - `app/opengraph-image.png` (+ `.alt.txt`): the preview picture when the link is shared on WhatsApp. Regenerate if the logo or name changes.
 - Photos (24 Oct 2026): the clinic's real reception photo, `clinic.receptionPhoto` → `public/photos/reception-{640,800,1200}.webp`
   (3:2, cropped from the clinic's phone photo), drawn by `components/ClinicPhoto.tsx` (plain `<img>` with srcset: static
-  export, so no next/image resizing). Shown on the home visit card and at the top of /contact (eager there: it's on screen at load).
+  export, so no next/image resizing). Shown at the top of /contact (eager there: it's on screen at load).
+  Shopfront photo (26 Nov 2026, the owner's): `clinic.storefrontPhoto` → `public/photos/storefront-{640,800,1080}.webp` (3:4),
+  `StorefrontPhoto` in ClinicPhoto.tsx; the big photo in the home Visit band (4:5 on phones, cropped 3:2 from 640px on the sign).
 - `app/not-found.tsx`: friendly 404 with Home, Book and Call.
 - Logo (emblem "A", chosen 23 Oct 2026): `components/Logo.tsx` in the header; print files in `brand/`
   (`logo.svg`, PNGs, horizontal lockups). The favicon `app/icon.svg` is `brand/logo-small.svg`, a simplified
