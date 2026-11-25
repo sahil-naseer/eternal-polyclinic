@@ -71,6 +71,13 @@ in under 60 seconds with no account. Reception confirms every request by phone.
   Header (`SiteHeader`, which carries the only WhatsApp button on wide screens; the floating one was removed 25 Nov 2026),
   footer (`SiteChrome`), and the phone/tablet bottom tab bar (`TabBar`: Home,
   Doctors, Book, More sheet) are mounted in `app/layout.tsx`.
+- Design v6 "Bands" (26 Nov 2026, branch `redesign/apple-inspired`, not merged yet): original layout in the spirit of big
+  product pages (no copied code, text, images, icons or fonts). Home = full-width bands, one message each, centred:
+  white hero (`.ep-display` headline, TodayLine, black pill + outline pill, big drawing below) → grey DayPicker →
+  black "Tests and medicines" with dark tiles (`.ep-tile`) → white Visit with a big photo. Band headings use `.ep-headline`,
+  inner page titles `.ep-display-sm` (PageIntro). Thin `AnnouncementStrip` (hours + "See who's in") above a slimmer header
+  with small text links; footer is light grey with small type. Nothing loops forever any more: the live dot breathes
+  3 times, the ECG brightens twice, the slips bob once. Styles: "Design v6" block at the end of globals.css.
 - Design v5 "Monochrome" (23 Nov 2026, branch `redesign/monochrome`): black/white/grey tokens in globals.css, one accent
   (`accent`, the logo's deep teal; `mint` on black), Inter (see Font above), bold headlines, frosted header and
   tab bar (`frosted` utility), pill buttons (globals.css turns `inline-flex` links/buttons with rounded-xl/lg into pills; add
