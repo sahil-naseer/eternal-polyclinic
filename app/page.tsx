@@ -9,7 +9,7 @@ import { clinic, services } from "@/data/clinic";
 import { DayPicker } from "@/components/DayPicker";
 import { HeroClinicalArt } from "@/components/HeroClinicalArt";
 import { LegacyBookingLink } from "@/components/LegacyBookingLink";
-import { ReceptionPhoto } from "@/components/ClinicPhoto";
+import { StorefrontPhoto } from "@/components/ClinicPhoto";
 import { TodayLine } from "@/components/TodayLine";
 import { MapPinIcon, PhoneIcon, ServiceIcon } from "@/components/Icons";
 import { formatTimeShort } from "@/lib/schedule";
@@ -103,7 +103,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Visit: centred address and buttons, then the clinic's own photo, big. */}
+      {/* Visit: centred address and buttons, then the shopfront photo, big (cropped wide from 640px; the full photo is 3:4). */}
       <section aria-labelledby="visit" className="bg-white">
         <div className="mx-auto max-w-5xl px-5 pt-16 text-center sm:px-6 sm:pt-28 lg:pt-32">
           <div className="reveal">
@@ -141,8 +141,8 @@ export default function Home() {
         <div className="mx-auto max-w-5xl px-5 pt-10 pb-16 sm:px-6 sm:pt-14 sm:pb-28 lg:pb-32">
           <Link href="/contact" aria-label="Map and directions" className="block">
             <span className="ep-scroll-scale block overflow-hidden rounded-3xl">
-              <ReceptionPhoto
-                className="aspect-[3/2] transition-transform duration-700 ease-out hover:scale-[1.02]"
+              <StorefrontPhoto
+                className="aspect-[4/5] object-[50%_45%] sm:aspect-[3/2] transition-transform duration-700 ease-out hover:scale-[1.02]"
                 sizes="(min-width: 1024px) 960px, calc(100vw - 40px)"
               />
             </span>
